@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  COMPANY
+  MEMBER
+}
+
+model User {
+  id                        String   @id @default(uuid())
+  name                      String
+  email                     String   @unique
+  password_hash             String
+  profile_image_path        String?
+  banner_profile_image_path String?
+  role                      UserRole @default(MEMBER)
+  created_at                DateTime @default(now())
+
+  system System[]
+  Review Review[]
+
+  @@map("users")
+}
+
+model System {
+  id                      String  @id @default(uuid())
+  name                    String  @unique()
+  description             String
+  content                 String
+  system_page_link        String?
+  system_logo_image_path  String?
+  system_cover_image_path String?
+
+  User    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  Review Review[]
+
+  @@map("systems")
+}
+
+model Review {
+  id      String @id @default(uuid())
+  title   String
+  content String
+  rating  Int
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  system    System @relation(fields: [system_id], references: [id])
+  system_id String
+
+  @@map("reviews")
+}

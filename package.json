@@ -1,0 +1,16 @@
+{
+  "name": "system-rank",
+  "private": "true",
+  "version": "1.0.0",
+  "description": "Monorepo of the System Rank",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build"
+  },
+  "keywords": [],
+  "author": "Artur Poffo",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^1.10.16"
+  }
+}
