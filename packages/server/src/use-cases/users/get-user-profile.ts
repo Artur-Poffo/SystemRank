@@ -11,7 +11,7 @@ interface GetUserProfileUserUseCaseResponse {
   user: User
 }
 
-export class GetUserProfileUserUseCase
+export class GetUserProfileUseCase
   implements
     UseCase<
       GetUserProfileUserUseCaseRequest,

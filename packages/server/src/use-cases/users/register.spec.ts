@@ -18,7 +18,7 @@ describe('Register user use case', () => {
       name: 'John Doe',
       email: 'johndoe@gmail.com',
       password: '123456',
-      userRole: 'COMPANY',
+      isCompany: true,
     })
 
     expect(user.id).toEqual(expect.any(String))
@@ -31,7 +31,7 @@ describe('Register user use case', () => {
       name: 'John Doe',
       email,
       password: '123456',
-      userRole: 'COMPANY',
+      isCompany: true,
     })
 
     await expect(() =>
@@ -39,7 +39,7 @@ describe('Register user use case', () => {
         name: 'John Doe',
         email,
         password: '123456',
-        userRole: 'COMPANY',
+        isCompany: true,
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
@@ -49,7 +49,7 @@ describe('Register user use case', () => {
       name: 'John Doe',
       email: 'johndoe@gmail.com',
       password: '123456',
-      userRole: 'COMPANY',
+      isCompany: true,
     })
 
     const isPasswordEncrypted = await compare('123456', user.password_hash)

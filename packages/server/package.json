@@ -8,6 +8,9 @@
     "start": "node dist/server.js",
     "test": "vitest run --dir src/use-cases",
     "test:watch": "vitest dir src/use-cases",
+    "test:cov": "vitest run --coverage",
+    "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
+    "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "lint": "eslint src --ext .ts --fix"
   },
   "keywords": [],
