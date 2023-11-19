@@ -40,6 +40,16 @@ export class PrismaUsersRepository implements UserRepository {
     }
   }
 
+  async findAll(page?:number): Promise<User[]> {
+    const users = await prisma.user.findMany()
+
+    if (page) {
+      return users.slice((page - 1) * 20, page * 20)
+    } else {
+      return users
+    }
+  }
+
   async updateProfile(user: User): Promise<User> {
     const updatedUser = await prisma.user.update({
       data: user,

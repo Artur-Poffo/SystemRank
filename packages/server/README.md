@@ -1,4 +1,4 @@
-# System Rank - Server Package 💻
+# SystemRank - Server Package 💻
 
 ## Functional Requirements (FRs)
 
@@ -9,6 +9,7 @@
 - [x] A company should be able to register one or more operating systems (OSs).
 - [x] A company should be able to edit its OSs.
 - [x] A company should be able to delete its OSs.
+- [x] Should be able to fetch all companies
 - [x] Filtering OSs by company should be possible.
 - [x] Retrieving all available OSs on the platform should be possible.
 - [x] Getting details of a specific OS should be possible.
@@ -16,6 +17,7 @@
 - [x] Rating OSs on a scale of 1 to 5 and leaving comments should be possible.
 - [x] Editing existing reviews should be possible.
 - [x] Deleting reviews should be possible.
+- [x] Should be able to fetch all reviews of a system
 
 ## Business Rules (BRs)
 

@@ -4,5 +4,9 @@ node_modules
 # Environment
 .env
 
+# RSA KEYS
+private-key.pem
+public-key.pem
+
 # Build
 dist

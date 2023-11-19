@@ -35,6 +35,14 @@ export class InMemoryUsersRepository implements UserRepository {
     }
   }
 
+  async findAll(page?: number): Promise<User[]> {
+    if (page) {
+      return [...this.items].slice((page - 1) * 20, page * 20)
+    } else {
+      return [...this.items]
+    }
+  }
+
   async updateProfile(user: User): Promise<User> {
     const findItemIndex = this.items.findIndex((item) => item.id === user.id)
 

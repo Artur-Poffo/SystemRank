@@ -1,4 +1,4 @@
-# System Rank - Monorepo 🚀
+# SystemRank - Monorepo 🚀
 
 > ## Intermediary between companies and users to promote and review Operating Systems(OS)
 

@@ -18,7 +18,7 @@ export async function getUserProfile(
 
     const { user } = await getUserProfileUseCase.exec({ userId })
 
-    reply.status(200).send({ user })
+    return reply.status(200).send({ user })
   } catch (err) {
     if (err instanceof ResourceNotFoundError) {
       return reply.status(404).send({ message: err.message })

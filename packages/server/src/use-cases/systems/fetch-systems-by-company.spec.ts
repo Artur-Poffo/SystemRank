@@ -1,7 +1,7 @@
 import { InMemorySystemsRepository } from '@/repositories/in-memory/in-memory-systems-repository'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { hash } from 'bcryptjs'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { PermissionDeniedError } from '../shared/errors/permission-denied-error'
 import { ResourceNotFoundError } from '../shared/errors/resource-not-found-error'
 import { FetchSystemsByCompanyUseCase } from './fetch-systems-by-company'
 
@@ -80,5 +80,21 @@ describe('Fetch systems by company use case', () => {
         companyId: 'inexistentIdCompany',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
+  })
+
+  it('Should not be able to fetch the system of a member', async () => {
+    const user = await usersRepository.create({
+      id: 'user-01',
+      name: 'John Doe',
+      email: 'johndoe@gmail.com',
+      password_hash: await hash('123456', 6),
+      role: 'MEMBER',
+    })
+
+    await expect(() =>
+      sut.exec({
+        companyId: user.id,
+      }),
+    ).rejects.toBeInstanceOf(PermissionDeniedError)
   })
 })

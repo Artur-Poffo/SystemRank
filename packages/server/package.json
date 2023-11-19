@@ -9,13 +9,24 @@
     "test": "vitest run --dir src/use-cases",
     "test:watch": "vitest dir src/use-cases",
     "test:cov": "vitest run --coverage",
-    "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
-    "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
+    "test:e2e": "vitest run --config ./vitest.config.e2e.mts",
+    "test:e2e:watch": "vitest --config ./vitest.config.e2e.mts",
     "lint": "eslint src --ext .ts --fix"
   },
   "keywords": [],
   "author": "Artur Poffo",
   "license": "ISC",
+  "dependencies": {
+    "@fastify/cookie": "^9.2.0",
+    "@fastify/cors": "^8.4.1",
+    "@fastify/formbody": "^7.4.0",
+    "@fastify/jwt": "^7.2.3",
+    "@prisma/client": "^5.6.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.24.3",
+    "zod": "^3.22.4"
+  },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
     "@swc/core": "^1.3.96",
@@ -32,12 +43,5 @@
     "unplugin-swc": "^1.4.3",
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "^0.34.6"
-  },
-  "dependencies": {
-    "@prisma/client": "^5.6.0",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^16.3.1",
-    "fastify": "^4.24.3",
-    "zod": "^3.22.4"
   }
 }

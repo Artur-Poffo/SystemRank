@@ -1,5 +1,4 @@
 import { InMemorySystemsRepository } from '@/repositories/in-memory/in-memory-systems-repository'
-import { beforeEach, describe, expect, it } from 'vitest'
 import { QuerySystemsUseCase } from './query-systems'
 
 let systemsRepository: InMemorySystemsRepository

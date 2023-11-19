@@ -2,7 +2,6 @@ import { InMemoryReviewsRepository } from '@/repositories/in-memory/in-memory-re
 import { InMemorySystemsRepository } from '@/repositories/in-memory/in-memory-systems-repository'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { hash } from 'bcryptjs'
-import { beforeEach, describe, expect, it } from 'vitest'
 import { PermissionDeniedError } from '../shared/errors/permission-denied-error'
 import { ResourceNotFoundError } from '../shared/errors/resource-not-found-error'
 import { DeleteReviewUseCase } from './delete'

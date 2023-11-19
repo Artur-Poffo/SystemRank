@@ -1,7 +1,6 @@
 import { InMemorySystemsRepository } from '@/repositories/in-memory/in-memory-systems-repository'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { hash } from 'bcryptjs'
-import { beforeEach, describe, expect, it } from 'vitest'
 import { FetchAllUseCase } from './fetch-all'
 
 let usersRepository: InMemoryUsersRepository

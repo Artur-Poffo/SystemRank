@@ -1,1 +1,1 @@
-# System Rank - Client Package 👔
+# SystemRank - Client Package 👔

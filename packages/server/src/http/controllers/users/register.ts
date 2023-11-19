@@ -11,8 +11,9 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     isCompany: z.boolean(),
   })
 
-  const { name, email, password, isCompany } =
-    await registerUserBodySchema.parse(request.body)
+  const { name, email, password, isCompany } = registerUserBodySchema.parse(
+    request.body,
+  )
 
   try {
     const registerUserUseCase = makeRegisterUserUseCase()
@@ -24,7 +25,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
       isCompany,
     })
 
-    return reply.status(201)
+    return reply.status(201).send()
   } catch (err) {
     if (err instanceof UserAlreadyExistsError) {
       return reply.status(409).send({ message: err.message })
