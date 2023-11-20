@@ -1,6 +1,6 @@
 {
   "name": "system-rank",
-  "private": "true",
+  "private": true,
   "version": "1.0.0",
   "description": "Monorepo of the System Rank",
   "scripts": {

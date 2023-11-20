@@ -16,12 +16,25 @@ export class InMemoryReviewsRepository implements ReviewsRepository {
   }
 
   async findManyBySystem(systemId: string, page?: number): Promise<Review[]> {
-    const systems = this.items.filter((item) => item.system_id === systemId)
+    const reviews = this.items.filter((item) => item.system_id === systemId)
 
     if (page) {
-      return systems.slice((page - 1) * 20, page * 20)
+      return reviews.slice((page - 1) * 20, page * 20)
     } else {
-      return systems
+      return reviews
+    }
+  }
+
+  async findManyByUser(
+    userId: string,
+    page?: number | undefined,
+  ): Promise<Review[]> {
+    const reviews = this.items.filter((item) => item.user_id === userId)
+
+    if (page) {
+      return reviews.slice((page - 1) * 20, page * 20)
+    } else {
+      return reviews
     }
   }
 
@@ -47,6 +60,7 @@ export class InMemoryReviewsRepository implements ReviewsRepository {
       title: review.title,
       content: review.content,
       rating: review.rating,
+      created_at: new Date(),
       system_id: review.system_id,
       user_id: review.user_id,
     }

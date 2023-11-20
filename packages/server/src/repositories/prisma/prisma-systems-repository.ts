@@ -32,6 +32,9 @@ export class PrismaSystemsRepository implements SystemsRepository {
         where: {
           user_id: companyId,
         },
+        orderBy: {
+          created_at: 'desc',
+        },
         take: 20,
         skip: (page - 1) * 20,
       })
@@ -41,6 +44,9 @@ export class PrismaSystemsRepository implements SystemsRepository {
       const systems = await prisma.system.findMany({
         where: {
           user_id: companyId,
+        },
+        orderBy: {
+          created_at: 'desc',
         },
       })
 
@@ -57,6 +63,9 @@ export class PrismaSystemsRepository implements SystemsRepository {
         where: {
           name: { contains: queryName },
         },
+        orderBy: {
+          created_at: 'desc',
+        },
         take: 20,
         skip: (page - 1) * 20,
       })
@@ -67,6 +76,9 @@ export class PrismaSystemsRepository implements SystemsRepository {
         where: {
           name: { contains: queryName },
         },
+        orderBy: {
+          created_at: 'desc',
+        },
       })
 
       return systems
@@ -76,13 +88,20 @@ export class PrismaSystemsRepository implements SystemsRepository {
   async findAll(page?: number | undefined): Promise<System[]> {
     if (page) {
       const systems = await prisma.system.findMany({
+        orderBy: {
+          created_at: 'desc',
+        },
         take: 20,
         skip: (page - 1) * 20,
       })
 
       return systems
     } else {
-      const systems = await prisma.system.findMany()
+      const systems = await prisma.system.findMany({
+        orderBy: {
+          created_at: 'desc',
+        },
+      })
 
       return systems
     }

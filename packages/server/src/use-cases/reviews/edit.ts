@@ -49,6 +49,7 @@ export class EditReviewUseCase
       content: content || review.content,
       rating: rating || review.rating,
       system_id: review.system_id,
+      created_at: review.created_at,
       user_id: review.user_id,
     })
 

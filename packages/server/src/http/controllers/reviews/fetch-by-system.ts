@@ -3,7 +3,7 @@ import { ResourceNotFoundError } from '@/use-cases/shared/errors/resource-not-fo
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function fetchBySystems(
+export async function fetchBySystem(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {

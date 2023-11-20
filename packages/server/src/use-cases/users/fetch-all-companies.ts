@@ -20,11 +20,9 @@ export class FetchAllCompaniesUseCase
   async exec({
     page = 1,
   }: FetchAllCompaniesUseCaseRequest): Promise<FetchAllCompaniesUseCaseResponse> {
-    const allUsers = await this.usersRepository.findAll(
-      page,
-    )
+    const allUsers = await this.usersRepository.findAll(page)
 
-    const companies = allUsers.filter(user => user.role === "COMPANY")
+    const companies = allUsers.filter((user) => user.role === 'COMPANY')
 
     if (!companies) {
       throw new ResourceNotFoundError()

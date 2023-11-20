@@ -55,6 +55,7 @@ export class EditSystemInfoUseCase
       system_logo_image_path:
         systemLogoImagePath || system.system_logo_image_path,
       system_page_link: systemPageLink || system.system_page_link,
+      created_at: system.created_at,
       user_id: userId,
     })
 

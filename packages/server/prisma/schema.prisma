@@ -29,13 +29,14 @@ model User {
 }
 
 model System {
-  id                      String  @id @default(uuid())
-  name                    String  @unique()
+  id                      String   @id @default(uuid())
+  name                    String   @unique()
   description             String
   content                 String
   system_page_link        String?
   system_logo_image_path  String?
   system_cover_image_path String?
+  created_at              DateTime @default(now())
 
   User    User   @relation(fields: [user_id], references: [id])
   user_id String
@@ -46,10 +47,11 @@ model System {
 }
 
 model Review {
-  id      String @id @default(uuid())
-  title   String
-  content String
-  rating  Int
+  id         String   @id @default(uuid())
+  title      String
+  content    String
+  rating     Int
+  created_at DateTime @default(now())
 
   user    User   @relation(fields: [user_id], references: [id])
   user_id String

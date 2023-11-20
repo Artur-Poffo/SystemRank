@@ -88,6 +88,7 @@ export class InMemorySystemsRepository implements SystemsRepository {
       system_cover_image_path:
         system.system_cover_image_path || 'default-cover-image-path',
       system_page_link: system.system_page_link || 'default-system-page-link',
+      created_at: new Date(),
       user_id: system.user_id,
     }
 

@@ -18,6 +18,7 @@
 - [x] Editing existing reviews should be possible.
 - [x] Deleting reviews should be possible.
 - [x] Should be able to fetch all reviews of a system
+- [x] Should be able to fetch all reviews of a user
 
 ## Business Rules (BRs)
 
@@ -30,5 +31,5 @@
 - [x] User passwords must be encrypted.
 - [x] Application data must be persisted in a `PostgreSQL` database with `Docker`.
 - [x] All data lists must be paginated with 20 items per page.
-- [ ] Users should be identified by a `JWT` (JSON Web Token).
-- [ ] The JWT must use the `RS256` algorithm.
+- [x] Users should be identified by a `JWT` (JSON Web Token).
+- [x] The JWT must use the `RS256` algorithm.

@@ -27,25 +27,51 @@ export class PrismaUsersRepository implements UserRepository {
     queryName: string,
     page?: number | undefined,
   ): Promise<User[]> {
-    const users = await prisma.user.findMany({
-      where: {
-        name: { contains: queryName },
-      },
-    })
-
     if (page) {
+      const users = await prisma.user.findMany({
+        where: {
+          name: { contains: queryName },
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+        take: 20,
+        skip: (page - 1) * 20,
+      })
+
       return users.slice((page - 1) * 20, page * 20)
     } else {
+      const users = await prisma.user.findMany({
+        where: {
+          name: { contains: queryName },
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+      })
+
       return users
     }
   }
 
-  async findAll(page?:number): Promise<User[]> {
-    const users = await prisma.user.findMany()
-
+  async findAll(page?: number): Promise<User[]> {
     if (page) {
+      const users = await prisma.user.findMany({
+        orderBy: {
+          created_at: 'desc',
+        },
+        take: 20,
+        skip: (page - 1) * 20,
+      })
+
       return users.slice((page - 1) * 20, page * 20)
     } else {
+      const users = await prisma.user.findMany({
+        orderBy: {
+          created_at: 'desc',
+        },
+      })
+
       return users
     }
   }

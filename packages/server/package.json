@@ -1,7 +1,7 @@
 {
   "name": "@system-rank/server",
   "version": "1.0.0",
-  "description": "Back-End of System Rank",
+  "description": "Back-End of SystemRank",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsup src",

@@ -18,23 +18,60 @@ export class PrismaReviewsRepository implements ReviewsRepository {
     page?: number | undefined,
   ): Promise<Review[]> {
     if (page) {
-      const systems = await prisma.review.findMany({
+      const reviews = await prisma.review.findMany({
         where: {
           system_id: systemId,
+        },
+        orderBy: {
+          created_at: 'desc',
         },
         take: 20,
         skip: (page - 1) * 20,
       })
 
-      return systems
+      return reviews
     } else {
-      const systems = await prisma.review.findMany({
+      const reviews = await prisma.review.findMany({
         where: {
           system_id: systemId,
         },
+        orderBy: {
+          created_at: 'desc',
+        },
       })
 
-      return systems
+      return reviews
+    }
+  }
+
+  async findManyByUser(
+    userId: string,
+    page?: number | undefined,
+  ): Promise<Review[]> {
+    if (page) {
+      const reviews = await prisma.review.findMany({
+        where: {
+          user_id: userId,
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+        take: 20,
+        skip: (page - 1) * 20,
+      })
+
+      return reviews
+    } else {
+      const reviews = await prisma.review.findMany({
+        where: {
+          user_id: userId,
+        },
+        orderBy: {
+          created_at: 'desc',
+        },
+      })
+
+      return reviews
     }
   }
 

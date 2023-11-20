@@ -3,10 +3,12 @@ import { FastifyInstance } from 'fastify'
 import { create } from './create'
 import { deleteReview } from './delete'
 import { edit } from './edit'
-import { fetchBySystems } from './fetch-by-systems'
+import { fetchBySystem } from './fetch-by-system'
+import { fetchByUser } from './fetch-by-user'
 
 export async function reviewsRoutes(app: FastifyInstance) {
-  app.get('/reviews/system/:systemId', fetchBySystems)
+  app.get('/reviews/system/:systemId', fetchBySystem)
+  app.get('/reviews/user/:userId', fetchByUser)
 
   app.patch('/reviews/:reviewId', { onRequest: [verifyJwt] }, edit)
 
