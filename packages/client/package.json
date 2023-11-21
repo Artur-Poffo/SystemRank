@@ -12,6 +12,7 @@
   "author": "Artur Poffo",
   "dependencies": {
     "framer-motion": "^10.16.5",
+    "ky": "^1.1.3",
     "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
