@@ -25,11 +25,8 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
   )
 
   return reply
-    .setCookie('refreshToken', refreshToken, {
-      path: '/',
-      secure: true,
-      sameSite: true,
-      httpOnly: true,
+    .setCookie('systems.refreshToken', refreshToken, {
+      httpOnly: false,
       maxAge: 60 * 60 * 24 * 7, // 7 days
     })
     .status(200)

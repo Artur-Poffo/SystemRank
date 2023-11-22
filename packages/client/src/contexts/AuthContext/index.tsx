@@ -1,39 +1,114 @@
 'use client'
 
 import { ISignInParams } from "@/interfaces/ISignInParams"
+import { ISignUpParams } from "@/interfaces/ISignUpParams"
 import { IUser } from "@/interfaces/IUser"
 import { api } from "@/lib/ky"
-import { ReactNode, createContext, useState } from "react"
+import { decode as decodeJwt } from "jsonwebtoken"
+import { useRouter } from "next/navigation"
+import { parseCookies, setCookie } from "nookies"
+import { ReactNode, createContext, useEffect, useState } from "react"
 
 interface AuthContextData {
-    isAuthenticated: boolean,
-    SignIn: (data: ISignInParams) => Promise<void>,
-    // SignUp: (data: ISignUpParams) => Promise<void>,
-    // UpdateUser: (data: IUser) => Promise<void>,
-    user: IUser | null
-  }
+  isAuthenticated: boolean,
+  SignIn: (data: ISignInParams) => Promise<void | { success: boolean, statusCode: number }>,
+  SignUp: (data: ISignUpParams) => Promise<void>,
+  // UpdateUser: (data: IUser) => Promise<void>,
+  user: IUser | null
+}
 
-  export const AuthContext = createContext({} as AuthContextData)
+export const AuthContext = createContext({} as AuthContextData)
 
-  interface AuthProviderProps {
-    children: ReactNode
-  }
+interface AuthProviderProps {
+  children: ReactNode
+}
 
-  export function AuthContextProvider({ children }: AuthProviderProps) {
-    const [user, setUser] = useState<IUser | null>(null)
-    const isAuthenticated = !!user
-    
-    async function SignIn({ email, password }: ISignInParams) {
-      const res = await api.post("/users", {
-        method: 'post',
-        body: JSON.stringify({email, password})
-      })
-      console.log(res.body)
+export function AuthContextProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<IUser | null>(null)
+  const isAuthenticated = !!user
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const cookies = parseCookies()
+
+    if (cookies['systems.token']) {
+      const jwt = decodeJwt(cookies.authToken) as { sub: string }
+
+      getUserData(jwt.sub)
+        .then(user => setUser(user))
+        .catch(err => console.error("Error on get user data: " + err))
+    } else if (cookies['systems.refreshToken']) {
+      refreshAuthToken(cookies['systems.token']).then(res => console.log(res))
     }
+  }, [])
 
-    return (
-      <AuthContext.Provider value={{ isAuthenticated, SignIn, user }}>
-        {children}
-      </AuthContext.Provider>
-    )
+  async function getUserData(userId: string) {
+    const res = await api.get(`users/${userId}`, {
+      method: 'GET',
+    })
+    const user: IUser = await res.json()
+
+    return user
   }
+
+  async function refreshAuthToken(refreshToken: string) {
+    const res = await api.patch('token/refresh', {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": "0",
+        "Cookie": `refreshToken=${refreshToken}`,
+      }
+    })
+    const { token }: { token: string } = await res.json()
+
+    setCookie(null, 'systems.token', token, {
+      maxAge: 3600, // 1 hour
+      path: '/',
+    })
+
+    return { success: true }
+  }
+
+  async function SignIn({ email, password }: ISignInParams) {
+    try {
+      const res = await api.post("sessions", {
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+      })
+
+      const { token }: { token: string } = await res.json()
+
+      setCookie(null, 'systems.token', token, {
+        maxAge: 3600, // 1 hour
+        path: '/',
+      })
+
+      router.push('/explore')
+    } catch (err) {
+      console.error('Erro durante a autenticação: ', err);
+      throw err;
+    }
+  }
+
+  async function SignUp(data: ISignUpParams) {
+    try {
+      await api.post('users', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+
+      await SignIn({ email: data.email, password: data.password })
+    } catch (err) {
+      console.error('Erro durante o cadastro: ', err);
+      throw err;
+    }
+  }
+
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignUp, user }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}

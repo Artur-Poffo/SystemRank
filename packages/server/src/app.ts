@@ -14,7 +14,10 @@ export const app = fastify()
 
 // Plugins
 
-app.register(fastifyCors)
+app.register(fastifyCors, {
+  origin: [env.CLIENT_URL],
+  credentials: true
+})
 
 app.register(fastifyFormbody)
 

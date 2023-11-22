@@ -1,3 +1,3 @@
-import ky from "ky";
+import { generateApi } from "./api";
 
-export const api = ky.create({prefixUrl: 'http://localhost:3333'})
+export const api = generateApi()
