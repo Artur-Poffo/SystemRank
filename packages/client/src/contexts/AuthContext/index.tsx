@@ -33,13 +33,15 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     const cookies = parseCookies()
 
     if (cookies['systems.token']) {
-      const jwt = decodeJwt(cookies.authToken) as { sub: string }
+      const jwt = decodeJwt(cookies['systems.token']) as { sub: string }
 
       getUserData(jwt.sub)
         .then(user => setUser(user))
         .catch(err => console.error("Error on get user data: " + err))
     } else if (cookies['systems.refreshToken']) {
-      refreshAuthToken(cookies['systems.token']).then(res => console.log(res))
+      refreshAuthToken()
+        .then()
+        .catch(err => console.error(err))
     }
   }, [])
 
@@ -52,13 +54,12 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     return user
   }
 
-  async function refreshAuthToken(refreshToken: string) {
+  async function refreshAuthToken() {
     const res = await api.patch('token/refresh', {
       method: "PATCH",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "Content-Length": "0",
-        "Cookie": `refreshToken=${refreshToken}`,
       }
     })
     const { token }: { token: string } = await res.json()
@@ -67,8 +68,6 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       maxAge: 3600, // 1 hour
       path: '/',
     })
-
-    return { success: true }
   }
 
   async function SignIn({ email, password }: ISignInParams) {

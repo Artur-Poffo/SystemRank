@@ -36,6 +36,7 @@ export async function authenticate(
 
     return reply
       .setCookie('systems.refreshToken', refreshToken, {
+        path: '/',
         httpOnly: false,
         maxAge: 60 * 60 * 24 * 7, // 7 days
       })

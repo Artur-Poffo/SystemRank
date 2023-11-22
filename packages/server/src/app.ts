@@ -27,7 +27,7 @@ app.register(fastifyJwt, {
     public: readFileSync('./public-key.pem'),
   },
   cookie: {
-    cookieName: 'refreshToken',
+    cookieName: 'systems.refreshToken',
     signed: false,
   },
   sign: { algorithm: 'RS256', expiresIn: '10m' },
