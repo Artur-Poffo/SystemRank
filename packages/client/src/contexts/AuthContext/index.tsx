@@ -7,6 +7,7 @@ import { api } from "@/lib/ky"
 import { decode as decodeJwt } from "jsonwebtoken"
 import { useRouter } from "next/navigation"
 import { parseCookies, setCookie } from "nookies"
+import { registerAuthToken } from "@/utils/registerAuthToken"
 import { ReactNode, createContext, useEffect, useState } from "react"
 
 interface AuthContextData {
@@ -64,10 +65,8 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     })
     const { token }: { token: string } = await res.json()
 
-    setCookie(null, 'systems.token', token, {
-      maxAge: 3600, // 1 hour
-      path: '/',
-    })
+    registerAuthToken(token)
+    router.refresh()
   }
 
   async function SignIn({ email, password }: ISignInParams) {
@@ -79,10 +78,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
       const { token }: { token: string } = await res.json()
 
-      setCookie(null, 'systems.token', token, {
-        maxAge: 3600, // 1 hour
-        path: '/',
-      })
+      registerAuthToken(token)
 
       router.push('/explore')
     } catch (err) {
