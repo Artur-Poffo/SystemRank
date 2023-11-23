@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function RecentSystemsSection() {
   return (
-    <section id="#recent-systems" className="px-4 pb-10" >
+    <section id="recent-systems" className="px-4 pb-10" >
       <SectionHeader text="Sistemas recentes" />
 
       <div className="flex flex-col gap-12" >

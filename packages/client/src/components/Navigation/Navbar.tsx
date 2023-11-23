@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/hooks/useAuth";
 import { DefaultButton } from "../UI/DefaultButton";
+import { UserMenu } from "../UI/UserMenu";
 import { NavLink, NavLinkProps } from "./NavLink";
 
 interface NavbarProps {
@@ -12,7 +13,7 @@ export function Navbar({ navLinks }: NavbarProps) {
   const { user, isAuthenticated } = useAuth()
 
   return (
-    <header className="hidden fixed z-[999] top-0 w-full py-6 px-10 backdrop-blur-sm sm:flex items-center justify-between" >
+    <header className="hidden fixed z-[998] top-0 w-full py-6 px-10 backdrop-blur-sm sm:flex items-center justify-between" >
       <a href={'/#home'} >
         <h1 className="text-3xl font-mono font-bold text-brand-gray-100" >System<span className="text-brand-green-300" >Rank</span></h1>
       </a>
@@ -29,7 +30,7 @@ export function Navbar({ navLinks }: NavbarProps) {
         </ul>
 
         {!isAuthenticated && <DefaultButton text="Entrar" link="/auth/signin" />}
-        {isAuthenticated && <DefaultButton text="Logado" link="/auth/signin" />}
+        {isAuthenticated && <UserMenu />}
       </nav>
     </header>
   )

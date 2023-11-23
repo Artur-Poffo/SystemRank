@@ -2,10 +2,10 @@
 
 ## Páginas:
 
-- [] / -> public -> Homepage, introdução a plataforma
-- [] /auth/signin -> public -> Página de login, formulário para login
-- [] /auth/signup -> public -> Página de cadastro, formulário para cadastro
-- [] /explore -> private -> Página para explorar sistemas cadastrados, Lista de sistemas cadastrados com campo de pesquisa
+- [x] / -> public -> Homepage, introdução a plataforma
+- [x] /auth/signin -> public -> Página de login, formulário para login
+- [x] /auth/signup -> public -> Página de cadastro, formulário para cadastro
+- [x] /explore -> private -> Página para explorar sistemas cadastrados, Lista de sistemas cadastrados com campo de pesquisa
 - [] /me/:userId -> private -> Página perfil, Página de perfil de um usuário
   - [] Deve exibir todas as informações do usuário de uma forma agradável
   - [] Para empresas deve exibir a lista sistemas cadastrados

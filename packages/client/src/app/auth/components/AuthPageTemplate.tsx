@@ -9,7 +9,7 @@ interface AuthPageTemplateProps {
 
 export function AuthPageTemplate({ children, title, backgroundImagePath }: AuthPageTemplateProps) {
   return (
-    <section id="#auth" className="w-full h-screen flex items-center justify-center xl:items-start xl:justify-end relative px-5 xl:px-0" >
+    <section id="auth" className="w-full h-screen flex items-center justify-center xl:items-start xl:justify-end relative px-5 xl:px-0" >
       <div className="absolute top-0 left-0 w-full h-full opacity-60" >
         <Image src={backgroundImagePath} alt="Imagem de fundo" className="w-full h-full object-cover" width={1920} height={1280} />
       </div>

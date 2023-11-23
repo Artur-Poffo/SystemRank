@@ -29,7 +29,6 @@ export default function RootPublicLayout({
         <AuthContextProvider>
           <Navbar navLinks={navLinks} />
 
-
           <main className='min-h-screen'>
             {children}
           </main>

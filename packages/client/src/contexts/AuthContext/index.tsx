@@ -4,16 +4,17 @@ import { ISignInParams } from "@/interfaces/ISignInParams"
 import { ISignUpParams } from "@/interfaces/ISignUpParams"
 import { IUser } from "@/interfaces/IUser"
 import { api } from "@/lib/ky"
+import { registerAuthToken } from "@/utils/registerAuthToken"
 import { decode as decodeJwt } from "jsonwebtoken"
 import { useRouter } from "next/navigation"
-import { parseCookies, setCookie } from "nookies"
-import { registerAuthToken } from "@/utils/registerAuthToken"
+import { destroyCookie, parseCookies } from "nookies"
 import { ReactNode, createContext, useEffect, useState } from "react"
 
 interface AuthContextData {
   isAuthenticated: boolean,
   SignIn: (data: ISignInParams) => Promise<void | { success: boolean, statusCode: number }>,
   SignUp: (data: ISignUpParams) => Promise<void>,
+  Logout: () => Promise<void>,
   // UpdateUser: (data: IUser) => Promise<void>,
   user: IUser | null
 }
@@ -100,8 +101,15 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function Logout() {
+    destroyCookie(null, 'systems.token')
+    destroyCookie(null, 'systems.refreshToken')
+
+    router.refresh()
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignUp, user: userData }}>
+    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignUp, Logout, user: userData }}>
       {children}
     </AuthContext.Provider>
   )

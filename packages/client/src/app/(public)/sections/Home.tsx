@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function HomeSection() {
   return (
-    <section id="#home" className="w-full min-h-screen flex flex-col xl:flex-row items-center justify-center px-4 pt-20 xl:pt-0" >
+    <section id="home" className="w-full min-h-screen flex flex-col xl:flex-row items-center justify-center px-4 pt-20 xl:pt-0" >
       <div className="flex flex-col gap-2 max-w-xl pb-12" >
         <h1 className="text-3xl xl:text-4xl text-brand-green-300 font-mono font-bold" >Explore o mundo dos Sistemas Operacionais e se surpreenda</h1>
         <p className="text-sm" >Descubra novos sistemas operacionais e veja reviews dos que já conhece</p>

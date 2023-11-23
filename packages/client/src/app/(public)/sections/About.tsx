@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function AboutSection() {
   return (
-    <section id="#about" className="flex flex-col items-center mb-24 px-4" >
+    <section id="about" className="flex flex-col items-center mb-24 px-4" >
       <SectionHeader text="Sobre a plataforma" />
 
       <motion.div
