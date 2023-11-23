@@ -10,8 +10,8 @@ export function UserMenu() {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <div className='w-10 h-10 rounded-full border-2 border-brand-green-300 p-4' >
-          <img src={user?.profile_image_path} alt="Imagem de perfil do usuário" className='w-full h-full object-cover' />
+        <div className='w-10 h-10 rounded-full border-2 border-brand-green-300 cursor-pointer' >
+          <img src={user?.profile_image_path} alt="Imagem de perfil do usuário" className='w-full h-full rounded-full object-cover' />
         </div>
       </DropdownMenu.Trigger>
 

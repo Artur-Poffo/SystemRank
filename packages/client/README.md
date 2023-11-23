@@ -17,3 +17,9 @@
   - [] Deve ser possível adicionar uma avaliação ao sistema
   - [] Deve ser possível editar sua avaliação ao sistema
   - [] Deve ser possível excluir sua avaliação ao sistema
+
+## Tasks:
+
+- [] Padronizar tamanho das imagens e dos elementos para uma unidade de medida 
+- [] Arrumar componente DefaultListItem 
+- [] Continuar desenvolvendo /me/:userId

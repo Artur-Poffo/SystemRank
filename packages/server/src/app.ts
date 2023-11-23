@@ -16,7 +16,7 @@ export const app = fastify()
 
 app.register(fastifyCors, {
   origin: [env.CLIENT_URL],
-  credentials: true
+  credentials: true,
 })
 
 app.register(fastifyFormbody)
@@ -30,7 +30,7 @@ app.register(fastifyJwt, {
     cookieName: 'systems.refreshToken',
     signed: false,
   },
-  sign: { algorithm: 'RS256', expiresIn: '10m' },
+  sign: { algorithm: 'RS256', expiresIn: '1h' },
 })
 
 app.register(fastifyCookie)

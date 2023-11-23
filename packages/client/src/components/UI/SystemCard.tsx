@@ -3,10 +3,10 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { DefaultCard } from "./DefaultCard";
 
 interface SystemCardProps {
-  id: string
-  name: string
-  logoUrl: string
-  description: string
+  id?: string
+  name?: string
+  logoUrl?: string
+  description?: string
   animationDelay?: number
   skeleton?: boolean
 }

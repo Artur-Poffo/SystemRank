@@ -1,8 +1,15 @@
 import { SectionHeader } from "@/components/UI/SectionHeader";
 import { SystemCard } from "@/components/UI/SystemCard";
+import { ISystem } from "@/interfaces/ISystem";
+import { api } from "@/lib/ky";
 import Link from "next/link";
 
-export function RecentSystemsSection() {
+export async function RecentSystemsSection() {
+  const res = await api.get('systems', {
+    method: 'GET'
+  })
+  const { systems }: { systems: ISystem[] } = await res.json()
+
   return (
     <section id="recent-systems" className="px-4 pb-10" >
       <SectionHeader text="Sistemas recentes" />
@@ -10,15 +17,14 @@ export function RecentSystemsSection() {
       <div className="flex flex-col gap-12" >
         <h2 className="text-3xl text-brand-green-300 font-bold" >Sistemas cadastrados recentemente:</h2>
         <ul className="flex flex-wrap items-start justify-center xl:justify-start gap-6">
-          <li className="w-full md:w-auto" >
-            <SystemCard animationDelay={0.2} />
-          </li>
-          <li className="w-full md:w-auto" >
-            <SystemCard animationDelay={0.4} />
-          </li>
-          <li className="w-full md:w-auto" >
-            <SystemCard animationDelay={0.6} />
-          </li>
+          {systems.slice(0, 3).map((system, index) => {
+            return (
+              <li className="w-full md:w-auto" key={system.id} >
+                <SystemCard id={system.id} name={system.name} description={system.description} logoUrl={system.system_logo_image_path || ""} animationDelay={index * 20 / 100} />
+                {/* Animation delay order: 0,2 -> 0,4 -> 0,6 */}
+              </li>
+            )
+          })}
           <li className="w-full md:w-auto">
             <Link href={'/explore'} >
               <SystemCard skeleton animationDelay={0.8} />

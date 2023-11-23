@@ -80,7 +80,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
       registerAuthToken(token)
 
-      router.push('/explore')
+      router.back()
     } catch (err) {
       console.error('Erro durante a autenticação: ', err);
       throw err;

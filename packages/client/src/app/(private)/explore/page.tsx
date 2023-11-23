@@ -1,12 +1,12 @@
 'use client'
 
-import { PageHeader } from "@/components/UI/PageHeader";
-import { SearchBar } from "./components/SearchBar"
 import { DefaultListItem } from "@/components/UI/DefaultListItem";
+import { PageHeader } from "@/components/UI/PageHeader";
 import { SystemCard } from "@/components/UI/SystemCard";
-import { useEffect, useState } from "react";
-import { api } from "@/lib/ky";
 import { ISystem } from "@/interfaces/ISystem";
+import { api } from "@/lib/ky";
+import { useEffect, useState } from "react";
+import { SearchBar } from "./components/SearchBar";
 
 export default function Explore() {
   const [allSystems, setAllSystems] = useState<ISystem[]>([])
@@ -18,7 +18,7 @@ export default function Explore() {
         setAllSystems(systems)
         setQuerySystems(systems)
       })
-      .catch(err => console.error('Errro pesquisando por sistemas: ', err))
+      .catch(err => console.error('Erro pesquisando por sistemas: ', err))
   }, [])
 
   async function searchAllSystems() {
