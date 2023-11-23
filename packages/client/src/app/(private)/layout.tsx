@@ -34,15 +34,15 @@ export default async function RootPrivateLayout({
   return (
     <html lang="pt">
       <body className={`${inter.className} bg-brand-blue-900 text-brand-gray-200 scrollbar-thin scrollbar-thumb-brand-blue-700 scrollbar-track-brand-gray-900`}>
-        <Navbar navLinks={navLinks} />
-
         <AuthContextProvider>
+          <Navbar navLinks={navLinks} />
+
           <main className='min-h-screen'>
             {children}
           </main>
-        </AuthContextProvider>
 
-        <Footer />
+          <Footer />
+        </AuthContextProvider>
       </body>
     </html>
   )

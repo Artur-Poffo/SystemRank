@@ -1,3 +1,6 @@
+'use client'
+
+import { useAuth } from "@/hooks/useAuth";
 import { DefaultButton } from "../UI/DefaultButton";
 import { NavLink, NavLinkProps } from "./NavLink";
 
@@ -6,6 +9,8 @@ interface NavbarProps {
 }
 
 export function Navbar({ navLinks }: NavbarProps) {
+  const { user, isAuthenticated } = useAuth()
+
   return (
     <header className="hidden fixed z-[999] top-0 w-full py-6 px-10 backdrop-blur-sm sm:flex items-center justify-between" >
       <a href={'/#home'} >
@@ -23,7 +28,8 @@ export function Navbar({ navLinks }: NavbarProps) {
           })}
         </ul>
 
-        <DefaultButton text="Entrar" link="/auth/signin" />
+        {!isAuthenticated && <DefaultButton text="Entrar" link="/auth/signin" />}
+        {isAuthenticated && <DefaultButton text="Logado" link="/auth/signin" />}
       </nav>
     </header>
   )

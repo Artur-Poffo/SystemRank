@@ -25,8 +25,8 @@ interface AuthProviderProps {
 }
 
 export function AuthContextProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<IUser | null>(null)
-  const isAuthenticated = !!user
+  const [userData, setUserData] = useState<IUser | null>(null)
+  const isAuthenticated = !!userData
 
   const router = useRouter()
 
@@ -37,12 +37,11 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       const jwt = decodeJwt(cookies['systems.token']) as { sub: string }
 
       getUserData(jwt.sub)
-        .then(user => setUser(user))
+        .then(data => setUserData(data.user))
         .catch(err => console.error("Error on get user data: " + err))
     } else if (cookies['systems.refreshToken']) {
       refreshAuthToken()
-        .then()
-        .catch(err => console.error(err))
+        .catch((err) => console.error("Error on refresh token: ", err))
     }
   }, [])
 
@@ -50,9 +49,9 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     const res = await api.get(`users/${userId}`, {
       method: 'GET',
     })
-    const user: IUser = await res.json()
+    const data: { user: IUser } = await res.json()
 
-    return user
+    return data
   }
 
   async function refreshAuthToken() {
@@ -102,7 +101,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignUp, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignUp, user: userData }}>
       {children}
     </AuthContext.Provider>
   )

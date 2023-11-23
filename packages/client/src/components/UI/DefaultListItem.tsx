@@ -6,7 +6,7 @@ interface DefaultListItemProps {
 
 export function DefaultListItem({ children }: DefaultListItemProps) {
   return (
-    <ul className="w-full grid grid-cols-5 justify-center gap-6" >
+    <ul className="w-full flex items-start justify-center flex-wrap gap-10 gap-y-14 gap-x-6" >
       {children}
     </ul>
   )
