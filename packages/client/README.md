@@ -24,3 +24,5 @@
 - [x] Arrumar componente DefaultListItem 
 - [x] lib dayjs para a data no perfil do usuário
 - [] Continuar desenvolvendo /me/:userId
+- [] Criar componente subtitle
+- [] Transição de página com framer-motion

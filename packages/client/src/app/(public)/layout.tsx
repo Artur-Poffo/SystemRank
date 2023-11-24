@@ -24,7 +24,7 @@ export default function RootPublicLayout({
   ]
 
   return (
-    <html lang="pt">
+    <html lang="pt-BR" className='scroll-smooth'>
       <body className={`${inter.className} bg-brand-blue-900 text-brand-gray-200 scrollbar-thin scrollbar-thumb-brand-blue-700 scrollbar-track-brand-gray-900`}>
         <AuthContextProvider>
           <Navbar navLinks={navLinks} />

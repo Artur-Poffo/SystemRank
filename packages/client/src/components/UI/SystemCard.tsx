@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaArrowRightLong } from "react-icons/fa6";
+import { FaArrowRightLong, FaComputer } from "react-icons/fa6";
 import { DefaultCard } from "./DefaultCard";
 
 interface SystemCardProps {
@@ -22,7 +22,13 @@ export function SystemCard({ id, name, description, logoUrl, animationDelay, ske
       <Link href={`/systems/${id}`} >
         <DefaultCard animationDelay={animationDelay} className="bg-brand-gray-600 w-full md:w-[330px] min-h-[200px] md:min-h-[330px] flex flex-col items-center gap-4 px-5 pb-5 rounded-md" >
           <header className="flex flex-col items-center gap-2 -mt-7" >
-            <img src={logoUrl} alt="Logo do sistema operacional" className="w-20 h-20" />
+            <div className={`w-20 h-20 text-center flex items-center justify-center`} >
+              {logoUrl ? (
+                <img src={logoUrl} alt="Logo do sistema operacional" className="w-full h-full" />
+              ) : (
+                <FaComputer size={80} />
+              )}
+            </div>
             <h2 className="text-lg font-bold font-mono text-brand-green-200" >{name}</h2>
           </header >
 
