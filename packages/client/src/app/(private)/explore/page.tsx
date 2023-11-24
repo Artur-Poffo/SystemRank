@@ -39,7 +39,7 @@ export default function Explore() {
     <>
       <PageHeader title="Explorar" />
 
-      <main className="max-w-screen-2xl mx-auto flex flex-col items-center gap-16 mt-12 px-4 pb-10" >
+      <section id="explore" className="max-w-screen-2xl mx-auto flex flex-col items-center gap-16 mt-12 px-4 pb-10" >
         <header className="w-full max-w-lg" >
           <SearchBar searchFunc={handleQuerySystems} />
         </header>
@@ -53,7 +53,7 @@ export default function Explore() {
             )
           })}
         </DefaultListItem>
-      </main>
+      </section>
     </>
   )
 }

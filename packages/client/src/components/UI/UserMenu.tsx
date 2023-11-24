@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { MdLogout } from "react-icons/md";
 import { NavLink } from '../Navigation/NavLink';
 
 export function UserMenu() {
@@ -30,7 +31,10 @@ export function UserMenu() {
           )}
 
           <DropdownMenu.Item asChild>
-            <button className='text-left outline-none text-red-600 hover:opacity-60 transition-opacity' onClick={Logout} >Sair</button>
+            <button className='text-left outline-none text-red-600 hover:opacity-60 transition-opacity flex items-center gap-1' onClick={Logout} >
+              Sair
+              <MdLogout />
+            </button>
           </DropdownMenu.Item>
 
           <DropdownMenu.Arrow fill='#161616' />

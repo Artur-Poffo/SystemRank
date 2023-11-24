@@ -22,7 +22,7 @@ export default async function RootPrivateLayout({
 }) {
   const isAuthenticated = await verifyAuthToken()
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated.hasCookie) {
     redirect('/auth/signin')
   }
 

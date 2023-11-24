@@ -13,7 +13,7 @@ export default async function AuthLayout({
 }) {
   const isAuthenticated = await verifyAuthToken()
 
-  if (isAuthenticated) {
+  if (isAuthenticated.hasCookie) {
     redirect('/explore')
   }
 

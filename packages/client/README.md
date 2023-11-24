@@ -20,6 +20,7 @@
 
 ## Tasks:
 
-- [] Padronizar tamanho das imagens e dos elementos para uma unidade de medida 
-- [] Arrumar componente DefaultListItem 
+- [x] Padronizar tamanho das imagens e dos elementos para uma unidade de medida 
+- [x] Arrumar componente DefaultListItem 
+- [x] lib dayjs para a data no perfil do usuário
 - [] Continuar desenvolvendo /me/:userId

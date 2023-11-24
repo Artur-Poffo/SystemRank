@@ -1,3 +1,4 @@
+import { DefaultListItem } from "@/components/UI/DefaultListItem";
 import { SectionHeader } from "@/components/UI/SectionHeader";
 import { SystemCard } from "@/components/UI/SystemCard";
 import { ISystem } from "@/interfaces/ISystem";
@@ -6,7 +7,8 @@ import Link from "next/link";
 
 export async function RecentSystemsSection() {
   const res = await api.get('systems', {
-    method: 'GET'
+    method: 'GET',
+    cache: 'no-store'
   })
   const { systems }: { systems: ISystem[] } = await res.json()
 
@@ -16,7 +18,7 @@ export async function RecentSystemsSection() {
 
       <div className="flex flex-col gap-12" >
         <h2 className="text-3xl text-brand-green-300 font-bold" >Sistemas cadastrados recentemente:</h2>
-        <ul className="flex flex-wrap items-start justify-center xl:justify-start gap-6">
+        <DefaultListItem className="justify-center xl:justify-start">
           {systems.slice(0, 3).map((system, index) => {
             return (
               <li className="w-full md:w-auto" key={system.id} >
@@ -30,7 +32,7 @@ export async function RecentSystemsSection() {
               <SystemCard skeleton animationDelay={0.8} />
             </Link>
           </li>
-        </ul>
+        </DefaultListItem>
       </div>
     </section>
   )
