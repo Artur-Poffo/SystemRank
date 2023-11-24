@@ -1,5 +1,3 @@
-import { DefaultListItem } from "@/components/UI/DefaultListItem"
-import { SystemCard } from "@/components/UI/SystemCard"
 import { ISystem } from "@/interfaces/ISystem"
 import { IUser } from "@/interfaces/IUser"
 import { api } from "@/lib/ky"
@@ -9,6 +7,10 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { IoMdSettings } from "react-icons/io"
 import { UserProfileCard } from "./components/UserProfileCard"
+import { IReview } from "@/interfaces/IReview"
+import { ReviewContainer } from "@/components/UI/ReviewContainer"
+import { SystemsList } from "./components/SystemsList"
+import { ReviewsList } from "./components/ReviewsList"
 
 interface UserProfileProps {
   params: {
@@ -19,6 +21,7 @@ interface UserProfileProps {
 export default async function UserProfile({ params }: UserProfileProps) {
   const { user } = await getUserData(params.userId)
   const systems = user.role === "COMPANY" ? await fetchSystemsOfCompany(params.userId) : null
+  const reviews = user.role === "MEMBER" ? await fetchReviewsOfUser(params.userId) : null
 
   const authToken = await verifyAuthToken()
   const isTheOwner = authToken.cookie?.value ? jwt.decode(authToken.cookie.value)?.sub === user.id : false
@@ -46,6 +49,16 @@ export default async function UserProfile({ params }: UserProfileProps) {
     return systems
   }
 
+  async function fetchReviewsOfUser(userId: string) {
+    const res = await api.get(`reviews/user/${userId}`, {
+      method: 'GET',
+      cache: 'no-store'
+    })
+    const { reviews }: { reviews: IReview[] } = await res.json()
+
+    return reviews
+  }
+
   return (
     <section id="profile" className="w-full px-4 mt-40 min-h-screen pb-10 flex flex-col xl:flex-row items-start justify-center gap-8" >
       <UserProfileCard user={user} />
@@ -64,18 +77,14 @@ export default async function UserProfile({ params }: UserProfileProps) {
         </header>
 
         <main className="flex flex-col gap-14" >
-          <h2 className="text-3xl text-brand-green-300 font-mono" >Sistemas da empresa</h2>
+          <h2 className="text-3xl text-brand-green-300 font-mono" >{user.role === "COMPANY" ? 'Sistemas da empresa' : 'Reviews recentes'}</h2>
 
           {user.role === "COMPANY" && systems && (
-            <DefaultListItem centered={false}>
-              {systems.map(system => {
-                return (
-                  <li key={system.id} className="w-full md:w-auto" >
-                    <SystemCard id={system.id} name={system.name} description={system.description} logoUrl={system.system_logo_image_path || ""} />
-                  </li>
-                )
-              })}
-            </DefaultListItem>
+            <SystemsList systems={systems} />
+          )}
+
+          {user.role === "MEMBER" && reviews && (
+            <ReviewsList reviews={reviews} />
           )}
         </main>
       </article>
