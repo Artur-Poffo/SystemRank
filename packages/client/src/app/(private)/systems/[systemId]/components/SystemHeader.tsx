@@ -1,17 +1,13 @@
 import { SettingsButton } from "@/components/UI/SettingsButton"
 import { ISystem } from "@/interfaces/ISystem"
-import { verifyAuthToken } from "@/utils/verifyAuthToken"
-import jwt from "jsonwebtoken"
 import { FaComputer } from "react-icons/fa6"
 
 interface SystemHeaderProps {
   system: ISystem
+  isTheOwner: boolean
 }
 
-export async function SystemHeader({ system }: SystemHeaderProps) {
-  const authToken = await verifyAuthToken()
-  const isTheOwner = authToken.cookie?.value ? jwt.decode(authToken.cookie.value)?.sub === system.user_id : false
-
+export async function SystemHeader({ system, isTheOwner }: SystemHeaderProps) {
   return (
     <header className="flex flex-col items-center" >
       <div className={`w-full h-[300px] lg:h-[500px] relative ${!system.system_cover_image_path && 'null-image-gradient'}`} >

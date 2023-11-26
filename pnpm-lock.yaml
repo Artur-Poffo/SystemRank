@@ -20,6 +20,9 @@ importers:
       '@mdxeditor/editor':
         specifier: ^1.11.2
         version: 1.11.2(@codemirror/language@6.9.2)(@lezer/common@1.1.1)(@lezer/highlight@1.2.0)(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.10)
+      '@radix-ui/react-dialog':
+        specifier: ^1.0.5
+        version: 1.0.5(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.0.6
         version: 2.0.6(@types/react-dom@18.2.17)(@types/react@18.2.38)(react-dom@18.2.0)(react@18.2.0)

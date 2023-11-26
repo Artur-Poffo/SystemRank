@@ -39,8 +39,6 @@ export function NewSystemForm() {
   const router = useRouter()
 
   async function handleRegisterSystem(data: RegisterSystemFormData) {
-    console.log(data)
-
     try {
       await api.post('systems', {
         method: "POST",
@@ -56,7 +54,6 @@ export function NewSystemForm() {
       await router.push('/explore')
     } catch (err) {
       setApiError('Sistema com mesmo nome já existe')
-      console.error(err)
     }
   }
 

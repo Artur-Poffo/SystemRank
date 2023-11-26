@@ -2,6 +2,8 @@ import { TransitionWrapper } from "@/components/Navigation/Transition/Wrapper"
 import { ReadMarkdownContainer } from "@/components/UI/ReadMarkdownContainer"
 import { ISystem } from "@/interfaces/ISystem"
 import { api } from "@/lib/ky"
+import { verifyAuthToken } from "@/utils/verifyAuthToken"
+import jwt from "jsonwebtoken"
 import { notFound } from "next/navigation"
 import { SystemHeader } from "./components/SystemHeader"
 import { SystemSummaryCard } from "./components/SystemSummary"
@@ -15,6 +17,9 @@ interface SystemPageProps {
 
 export default async function SystemPage({ params }: SystemPageProps) {
   const { system } = await getSystemData(params.systemId)
+
+  const authToken = await verifyAuthToken()
+  const isTheOwner = authToken.cookie?.value ? jwt.decode(authToken.cookie.value)?.sub === system.user_id : false
 
   async function getSystemData(systemId: string) {
     try {
@@ -33,7 +38,7 @@ export default async function SystemPage({ params }: SystemPageProps) {
   return (
     <TransitionWrapper>
       <section id="system-info" className="flex flex-col gap-20" >
-        <SystemHeader system={system} />
+        <SystemHeader system={system} isTheOwner={isTheOwner} />
 
         <main className="w-full px-4 min-h-screen pb-10 flex flex-col xl:flex-row items-start justify-center gap-8" >
           <SystemSummaryCard system={system} />
@@ -46,7 +51,7 @@ export default async function SystemPage({ params }: SystemPageProps) {
         </main>
       </section>
 
-      <ReviewsListSection systemId={params.systemId} />
+      <ReviewsListSection systemId={params.systemId} isTheOwner={isTheOwner} />
     </TransitionWrapper>
   )
 }
