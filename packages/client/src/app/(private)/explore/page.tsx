@@ -1,5 +1,6 @@
 'use client'
 
+import { TransitionWrapper } from "@/components/Navigation/Transition/Wrapper";
 import { DefaultListItem } from "@/components/UI/DefaultListItem";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { SystemCard } from "@/components/UI/SystemCard";
@@ -23,7 +24,8 @@ export default function Explore() {
 
   async function searchAllSystems() {
     const res = await api.get('systems', {
-      method: 'GET'
+      method: 'GET',
+      cache: 'no-store'
     })
     const { systems }: { systems: ISystem[] } = await res.json()
 
@@ -36,7 +38,7 @@ export default function Explore() {
   }
 
   return (
-    <>
+    <TransitionWrapper>
       <PageHeader title="Explorar" />
 
       <section id="explore" className="max-w-screen-2xl mx-auto flex flex-col items-center gap-16 mt-12 px-4 pb-10" >
@@ -54,6 +56,6 @@ export default function Explore() {
           })}
         </DefaultListItem>
       </section>
-    </>
+    </TransitionWrapper>
   )
 }

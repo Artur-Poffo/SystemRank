@@ -27,7 +27,7 @@ export class FetchReviewsByUserUseCase
 
   async exec({
     userId,
-    page = 1,
+    page,
   }: FetchReviewsByUserUseCaseRequest): Promise<FetchReviewsByUserUseCaseResponse> {
     const user = await this.usersRepository.findById(userId)
 

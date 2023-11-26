@@ -4,19 +4,19 @@ import { ISignInParams } from "@/interfaces/ISignInParams"
 import { ISignUpParams } from "@/interfaces/ISignUpParams"
 import { IUser } from "@/interfaces/IUser"
 import { api } from "@/lib/ky"
-import { registerAuthToken } from "@/utils/registerAuthToken"
 import { decode as decodeJwt } from "jsonwebtoken"
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies"
 import { useRouter } from "next/navigation"
-import { destroyCookie, parseCookies } from "nookies"
 import { ReactNode, createContext, useEffect, useState } from "react"
 
 interface AuthContextData {
-  isAuthenticated: boolean,
-  SignIn: (data: ISignInParams) => Promise<void | { success: boolean, statusCode: number }>,
+  SignIn: (data: ISignInParams) => Promise<void>,
   SignUp: (data: ISignUpParams) => Promise<void>,
+  GetUserData: (userId: string) => Promise<{ user: IUser | null }>
   Logout: () => Promise<void>,
   // UpdateUser: (data: IUser) => Promise<void>,
   user: IUser | null
+  isAuthenticated: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextData)
@@ -27,30 +27,45 @@ interface AuthProviderProps {
 
 export function AuthContextProvider({ children }: AuthProviderProps) {
   const [userData, setUserData] = useState<IUser | null>(null)
+  const [cookies, setCookies] = useState<RequestCookie[]>([])
+
   const isAuthenticated = !!userData
 
   const router = useRouter()
 
   useEffect(() => {
-    const cookies = parseCookies()
+    api.get('/api/auth/cookies/getAll', {
+      prefixUrl: undefined,
+      method: 'GET',
+      cache: 'no-store'
+    })
+      .then(res => res.json() as unknown as { allCookies: RequestCookie[] })
+      .then(data => setCookies(data.allCookies))
+      .catch(err => console.error('Erro na busca pelos cookies: ', err))
+  }, [])
 
-    if (cookies['systems.token']) {
-      const jwt = decodeJwt(cookies['systems.token']) as { sub: string }
+  useEffect(() => {
+    const authToken = cookies.find(cookie => cookie.name === "systems.token");
+    const refreshToken = cookies.find(cookie => cookie.name === "systems.refreshToken");
+
+    if (authToken) {
+      const jwt = decodeJwt(authToken.value) as { sub: string };
 
       getUserData(jwt.sub)
-        .then(data => setUserData(data.user))
-        .catch(err => console.error("Error on get user data: " + err))
-    } else if (cookies['systems.refreshToken']) {
+        .then(userData => setUserData(userData.user))
+        .catch(err => console.error("Error on get user data: " + err));
+    } else if (refreshToken) {
       refreshAuthToken()
-        .catch((err) => console.error("Error on refresh token: ", err))
+        .catch((err) => console.error("Error on refresh token: ", err));
     }
-  }, [])
+  }, [cookies]);
 
   async function getUserData(userId: string) {
     const res = await api.get(`users/${userId}`, {
       method: 'GET',
+      cache: 'no-store'
     })
-    const data: { user: IUser } = await res.json()
+    const data: { user: IUser | null } = await res.json()
 
     return data
   }
@@ -65,8 +80,13 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     })
     const { token }: { token: string } = await res.json()
 
-    registerAuthToken(token)
-    router.refresh()
+    await api.post('/api/auth/cookies/register', {
+      prefixUrl: undefined,
+      method: 'POST',
+      body: JSON.stringify({ name: 'systems.token', value: token }),
+    })
+
+    await router.refresh()
   }
 
   async function SignIn({ email, password }: ISignInParams) {
@@ -78,9 +98,13 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
       const { token }: { token: string } = await res.json()
 
-      registerAuthToken(token)
+      await api.post('/api/auth/cookies/register', {
+        prefixUrl: undefined,
+        method: 'POST',
+        body: JSON.stringify({ name: 'systems.token', value: token }),
+      })
 
-      router.back()
+      await router.push('/explore')
     } catch (err) {
       console.error('Erro durante a autenticação: ', err);
       throw err;
@@ -102,14 +126,16 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }
 
   async function Logout() {
-    destroyCookie(null, 'systems.token')
-    destroyCookie(null, 'systems.refreshToken')
+    await api.delete('/api/auth/cookies/destroy', {
+      prefixUrl: undefined,
+      method: 'DELETE',
+    })
 
     router.refresh()
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, SignIn, SignUp, Logout, user: userData }}>
+    <AuthContext.Provider value={{ SignIn, SignUp, Logout, GetUserData: getUserData, user: userData, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   )

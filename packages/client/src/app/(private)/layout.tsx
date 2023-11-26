@@ -4,11 +4,8 @@ import { Footer } from '@/components/UI/Footer'
 import { AuthContextProvider } from '@/contexts/AuthContext'
 import { verifyAuthToken } from '@/utils/verifyAuthToken'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { redirect } from 'next/navigation'
 import '../globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'SystemRank',
@@ -33,7 +30,7 @@ export default async function RootPrivateLayout({
 
   return (
     <html lang="pt-BR" className='scroll-smooth'>
-      <body className={`${inter.className} bg-brand-blue-900 text-brand-gray-200 scrollbar-thin scrollbar-thumb-brand-blue-700 scrollbar-track-brand-gray-900`}>
+      <body className={`bg-brand-blue-900 text-brand-gray-200 scrollbar-thin scrollbar-thumb-brand-blue-700 scrollbar-track-brand-gray-900`}>
         <AuthContextProvider>
           <Navbar navLinks={navLinks} />
 

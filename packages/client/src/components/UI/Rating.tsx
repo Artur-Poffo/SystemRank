@@ -8,7 +8,7 @@ interface RatingProps {
     selectedValue?: number
 }
 
-export function Rating({ iconSize, editable = true, selectedValue }: RatingProps) {
+export function Rating({ iconSize, editable = false, selectedValue }: RatingProps) {
     return (
         <ReactStars
             count={5}

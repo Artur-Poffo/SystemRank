@@ -1,5 +1,6 @@
 'use client'
 
+import { DefaultSubTitle } from "@/components/UI/DefaultSubTitle";
 import { SectionHeader } from "@/components/UI/SectionHeader";
 import { motion } from "framer-motion";
 
@@ -14,7 +15,7 @@ export function AboutSection() {
         transition={{ delay: .1, duration: .5 }}
         className="flex flex-col gap-2 max-w-xl"
       >
-        <h2 className="text-3xl text-brand-green-300 font-bold" >Sobre a SystemRank</h2>
+        <DefaultSubTitle text="Sobre a SystemRank" />
         <p>A SystemRank é uma plataforma que faz o intermédio entre entusiastas que buscam descobrir mais sistemas operacionais e empresas que desejam divulgar suas criações para esse público.</p>
         <p>Nós fazemos esse intermédio e permitimos que nossos usuários naveguem, descubram e avaliem os sistemas operacionais que as empresas cadastram em nossa plataforma.</p>
         <p>Graças a SystemRank podemos encontrar informações dos mais diversos tipos de sistemas operacionais, toda a informação e divulgação que você precisa em um só lugar.</p>

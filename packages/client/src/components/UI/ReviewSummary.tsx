@@ -19,11 +19,11 @@ export async function ReviewSummary({ reviewTitle, reviewContent, rating, review
     const { system }: { system: ISystem } = await res.json()
 
     return (
-        <Link href={`/systems/${systemId}/#review-${reviewId}`} >
+        <Link href={`/systems/${systemId}/#review-${reviewId}`} scroll={false} >
             <DefaultCard className="md:w-80 p-4 bg-brand-gray-600 rounded-md flex flex-col gap-2" >
                 <header>
                     <h2 className="text-xl text-brand-green-200 font-mono font-bold" >{system.name}</h2>
-                    <Rating iconSize={20} editable={false} selectedValue={rating} />
+                    <Rating iconSize={20} selectedValue={rating} />
                 </header>
 
                 <main className="flex flex-col gap-1" >

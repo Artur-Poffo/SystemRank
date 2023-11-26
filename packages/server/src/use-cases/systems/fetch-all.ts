@@ -16,7 +16,7 @@ export class FetchAllUseCase
   constructor(private readonly systemsRepository: SystemsRepository) {}
 
   async exec({
-    page = 1,
+    page,
   }: FetchAllUseCaseRequest): Promise<FetchAllUseCaseResponse> {
     const systems = await this.systemsRepository.findAll(page)
     return { systems }

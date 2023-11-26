@@ -19,7 +19,7 @@ export class QuerySystemsUseCase
 
   async exec({
     query,
-    page = 1,
+    page,
   }: QuerySystemsUseCaseRequest): Promise<QuerySystemsUseCaseResponse> {
     const systems = await this.systemsRepository.findManyByQueryName(
       query,

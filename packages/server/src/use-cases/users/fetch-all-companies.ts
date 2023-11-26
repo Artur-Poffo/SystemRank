@@ -18,7 +18,7 @@ export class FetchAllCompaniesUseCase
   constructor(private readonly usersRepository: UserRepository) {}
 
   async exec({
-    page = 1,
+    page,
   }: FetchAllCompaniesUseCaseRequest): Promise<FetchAllCompaniesUseCaseResponse> {
     const allUsers = await this.usersRepository.findAll(page)
 

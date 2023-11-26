@@ -1,3 +1,5 @@
+import { TransitionWrapper } from "@/components/Navigation/Transition/Wrapper"
+import { DefaultSubTitle } from "@/components/UI/DefaultSubTitle"
 import { IReview } from "@/interfaces/IReview"
 import { ISystem } from "@/interfaces/ISystem"
 import { IUser } from "@/interfaces/IUser"
@@ -27,7 +29,8 @@ export default async function UserProfile({ params }: UserProfileProps) {
   async function getUserData(userId: string) {
     try {
       const res = await api.get(`users/${userId}`, {
-        method: 'GET'
+        method: 'GET',
+        cache: 'no-store'
       })
       const user: { user: IUser } = await res.json()
 
@@ -58,24 +61,30 @@ export default async function UserProfile({ params }: UserProfileProps) {
   }
 
   return (
-    <section id="profile" className="w-full px-4 mt-40 min-h-screen pb-10 flex flex-col xl:flex-row items-start justify-center gap-8" >
-      <UserProfileCard user={user} />
+    <TransitionWrapper>
+      <section id="profile" className="w-full px-4 mt-40 min-h-screen pb-10 flex flex-col xl:flex-row items-start justify-center gap-8" >
+        <UserProfileCard user={user} />
 
-      <article className="flex-1 w-full flex flex-col gap-10" >
-        <UserBanner userId={user.id} bannerImagePath={user.banner_profile_image_path} isTheOwner={isTheOwner} />
+        <article className="flex-1 w-full flex flex-col gap-10" >
+          <UserBanner userId={user.id} bannerImagePath={user.banner_profile_image_path} isTheOwner={isTheOwner} />
 
-        <main className="flex flex-col gap-14" >
-          <h2 className="text-3xl text-brand-green-300 font-mono font-bold" >{user.role === "COMPANY" ? 'Sistemas da empresa' : 'Reviews recentes'}</h2>
+          <main className="flex flex-col gap-14" >
+            {user.role === "COMPANY" ? (
+              <DefaultSubTitle text="Sistemas da empresa" />
+            ) : (
+              <DefaultSubTitle text="Reviews recentes" />
+            )}
 
-          {user.role === "COMPANY" && systems && (
-            <SystemsList systems={systems} />
-          )}
+            {user.role === "COMPANY" && systems && (
+              <SystemsList systems={systems} />
+            )}
 
-          {user.role === "MEMBER" && reviews && (
-            <ReviewsList reviews={reviews} />
-          )}
-        </main>
-      </article>
-    </section>
+            {user.role === "MEMBER" && reviews && (
+              <ReviewsList reviews={reviews} />
+            )}
+          </main>
+        </article>
+      </section>
+    </TransitionWrapper>
   )
 }

@@ -1,6 +1,7 @@
 import { AuthPageTemplate } from "../components/AuthPageTemplate";
 
 import signInPageImage from "@/../public/images/signin-page-image.jpg";
+import { TransitionWrapper } from "@/components/Navigation/Transition/Wrapper";
 import { Metadata } from "next";
 import { SignInForm } from "../components/SignInForm";
 
@@ -11,8 +12,10 @@ export const metadata: Metadata = {
 
 export default function SignIn() {
   return (
-    <AuthPageTemplate title="Entrar" backgroundImagePath={signInPageImage.src}>
-      <SignInForm />
-    </AuthPageTemplate>
+    <TransitionWrapper>
+      <AuthPageTemplate title="Entrar" backgroundImagePath={signInPageImage.src}>
+        <SignInForm />
+      </AuthPageTemplate>
+    </TransitionWrapper>
   )
 }

@@ -28,7 +28,7 @@ export class FetchSystemsByCompanyUseCase
 
   async exec({
     companyId,
-    page = 1,
+    page,
   }: FetchSystemsByCompanyUseCaseRequest): Promise<FetchSystemsByCompanyUseCaseResponse> {
     const company = await this.usersRepository.findById(companyId)
 

@@ -20,7 +20,7 @@ export class QueryCompaniesUseCase
 
   async exec({
     query,
-    page = 1,
+    page,
   }: QueryCompaniesUseCaseRequest): Promise<QueryCompaniesUseCaseResponse> {
     const companies = await this.usersRepository.findManyByQueryName(
       query,

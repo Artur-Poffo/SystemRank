@@ -1,4 +1,7 @@
+'use client'
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { AnchorHTMLAttributes } from "react"
 
 export interface NavLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -7,9 +10,11 @@ export interface NavLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 export function NavLink({ name, to, className, ...rest }: NavLinkProps) {
+  const pathname = usePathname()
+
   return (
     <>
-      <Link {...rest} className={`${className}`} href={to} >{name}</Link>
+      <Link {...rest} className={`transition-colors ${pathname === to && 'text-brand-green-300'} ${className}`} href={to} >{name}</Link>
     </>
   )
 }

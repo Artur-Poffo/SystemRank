@@ -27,7 +27,7 @@ export class FetchReviewsBySystemUseCase
 
   async exec({
     systemId,
-    page = 1,
+    page,
   }: FetchReviewsBySystemUseCaseRequest): Promise<FetchReviewsBySystemUseCaseResponse> {
     const system = await this.systemsRepository.findById(systemId)
 

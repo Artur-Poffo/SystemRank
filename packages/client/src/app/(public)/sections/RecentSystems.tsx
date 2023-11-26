@@ -1,4 +1,5 @@
 import { DefaultListItem } from "@/components/UI/DefaultListItem";
+import { DefaultSubTitle } from "@/components/UI/DefaultSubTitle";
 import { SectionHeader } from "@/components/UI/SectionHeader";
 import { SystemCard } from "@/components/UI/SystemCard";
 import { ISystem } from "@/interfaces/ISystem";
@@ -17,7 +18,7 @@ export async function RecentSystemsSection() {
       <SectionHeader text="Sistemas recentes" />
 
       <div className="flex flex-col gap-12" >
-        <h2 className="text-3xl text-brand-green-300 font-bold" >Sistemas cadastrados recentemente:</h2>
+        <DefaultSubTitle text="Sistemas cadastrados recentemente:" />
         <DefaultListItem className="justify-center xl:justify-start">
           {systems.slice(0, 3).map((system, index) => {
             return (

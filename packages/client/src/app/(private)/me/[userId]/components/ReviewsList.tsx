@@ -9,7 +9,7 @@ interface ReviewsListProps {
 
 export function ReviewsList({ reviews }: ReviewsListProps) {
   return (
-    reviews.length > 1 ? (
+    reviews.length > 0 ? (
       <DefaultListItem centered={false} className="gap-x-4 gap-y-4">
         {reviews.map(review => {
           return (
