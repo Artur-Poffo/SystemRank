@@ -1,17 +1,14 @@
 import { config } from 'dotenv'
 import { z } from 'zod'
 
-if (process.env.NODE_ENV === 'test') {
-  config({ path: '.env.test' })
-} else {
-  config()
-}
+config()
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'),
   PORT: z.coerce.number().default(3333),
   DATABASE_URL: z.string(),
   CLIENT_URL: z.string(),
+  DIRECT_URL: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

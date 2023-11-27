@@ -2,6 +2,9 @@
   "name": "@system-rank/server",
   "version": "1.0.0",
   "description": "Back-End of SystemRank",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsup src",
