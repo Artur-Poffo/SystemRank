@@ -32,8 +32,8 @@ export function SystemCard({ id, name, description, logoUrl, animationDelay, ske
             <h2 className="text-lg font-bold font-mono text-brand-green-200" >{name}</h2>
           </header >
 
-          <main>
-            <p>{description}</p>
+          <main className="" >
+            <p className="line-clamp-[8]" >{description}</p>
           </main>
         </DefaultCard >
       </Link>

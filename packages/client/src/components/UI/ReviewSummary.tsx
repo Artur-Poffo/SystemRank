@@ -28,7 +28,7 @@ export async function ReviewSummary({ reviewTitle, reviewContent, rating, review
 
                 <main className="flex flex-col gap-1" >
                     <h3 className="text-lg text-brand-gray-100" >{reviewTitle}</h3>
-                    <p className="truncate" >{reviewContent}</p>
+                    <p className="line-clamp-1" >{reviewContent}</p>
                 </main>
             </DefaultCard>
         </Link>

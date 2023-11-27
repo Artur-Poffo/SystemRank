@@ -24,7 +24,7 @@ export async function SystemSummaryCard({ system }: SystemSummaryCardProps) {
   }
 
   return (
-    <aside className="static top-32 xl:sticky w-full lg:w-auto mx-auto xl:mx-0 bg-brand-gray-600 min-w-0 md:min-w-[400px] min-h-[300px] p-4 rounded-md flex flex-col items-center xl:items-start gap-5" >
+    <aside className="max-w-lg static top-32 xl:sticky w-full lg:w-auto mx-auto xl:mx-0 bg-brand-gray-600 min-w-0 md:min-w-[400px] min-h-[300px] p-4 rounded-md flex flex-col items-center xl:items-start gap-5" >
       <header className="w-full flex justify-center" >
         <h2 className="text-3xl text-brand-blue-600 text-center font-mono font-bold" >Mais informações</h2>
       </header>
@@ -38,6 +38,11 @@ export async function SystemSummaryCard({ system }: SystemSummaryCardProps) {
         <div>
           <h3 className="text-brand-blue-600 font-mono font-bold" >Registrado em</h3>
           <span>{registeredFormattedDate}</span>
+        </div>
+
+        <div>
+          <h3 className="text-brand-blue-600 font-mono font-bold" >Descrição</h3>
+          <p>{system.description}</p>
         </div>
       </main>
     </aside>

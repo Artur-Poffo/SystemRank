@@ -17,6 +17,7 @@ export const app = fastify()
 app.register(fastifyCors, {
   origin: [env.CLIENT_URL],
   credentials: true,
+  exposedHeaders: ['set-cookie'],
 })
 
 app.register(fastifyFormbody)
