@@ -24,7 +24,7 @@ export function MobileMenu({ navLinks }: MobileMenuProps) {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content sideOffset={8} className='p-5 bg-brand-gray-700 rounded-md min-w-[100px] flex flex-col gap-2' >
+        <DropdownMenu.Content sideOffset={8} className='p-5 bg-brand-gray-700 z-[995] rounded-md min-w-[100px] flex flex-col gap-2' >
           <DropdownMenu.Group className='flex flex-col gap-1' >
             {navLinks.map(navLinkProps => {
               return (
