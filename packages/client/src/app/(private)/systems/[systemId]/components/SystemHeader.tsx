@@ -16,7 +16,7 @@ export async function SystemHeader({ system, isTheOwner }: SystemHeaderProps) {
         )}
 
         {isTheOwner && (
-          <SettingsButton link={`systems/${system.id}/settings`} />
+          <SettingsButton link={`/systems/${system.id}/settings`} />
         )}
       </div>
 

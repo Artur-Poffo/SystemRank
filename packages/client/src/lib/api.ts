@@ -5,7 +5,7 @@ export function generateApi() {
   const {'systems.token': authToken} = parseCookies()
 
   let api = ky.create({
-    prefixUrl: 'http://localhost:3333',
+    prefixUrl: `${process.env.NEXT_PUBLIC_API_URL}`,
     headers: {'Content-Type': 'application/json'},
     credentials: 'include'
   })

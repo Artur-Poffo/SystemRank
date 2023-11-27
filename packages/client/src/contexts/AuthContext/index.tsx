@@ -1,5 +1,6 @@
 'use client'
 
+import { UpdateUserFormData } from "@/app/(private)/me/[userId]/components/UpdateUserForm"
 import { ISignInParams } from "@/interfaces/ISignInParams"
 import { ISignUpParams } from "@/interfaces/ISignUpParams"
 import { IUser } from "@/interfaces/IUser"
@@ -14,7 +15,7 @@ interface AuthContextData {
   SignUp: (data: ISignUpParams) => Promise<void>,
   GetUserData: (userId: string) => Promise<{ user: IUser | null }>
   Logout: () => Promise<void>,
-  // UpdateUser: (data: IUser) => Promise<void>,
+  UpdateUser: (data: UpdateUserFormData) => Promise<void>,
   user: IUser | null
   isAuthenticated: boolean
 }
@@ -134,8 +135,26 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
     router.refresh()
   }
 
+  async function UpdateUser(data: UpdateUserFormData) {
+    const res = await api.patch('users', {
+      method: 'PATCH',
+      body: JSON.stringify({
+        name: data.name || undefined,
+        email: data.email || undefined,
+        profileImagePath: data.profileImagePath || undefined,
+        bannerProfileImagePath: data.bannerProfileImagePath || undefined,
+      })
+    })
+    const { user: updatedUser }: { user: IUser } = await res.json()
+
+    setUserData(updatedUser)
+
+    await router.push(`/me/${updatedUser.id}`)
+    await router.refresh()
+  }
+
   return (
-    <AuthContext.Provider value={{ SignIn, SignUp, Logout, GetUserData: getUserData, user: userData, isAuthenticated }}>
+    <AuthContext.Provider value={{ SignIn, SignUp, UpdateUser, Logout, GetUserData: getUserData, user: userData, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   )
