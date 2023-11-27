@@ -3,8 +3,14 @@ import { SectionHeader } from "@/components/UI/SectionHeader";
 import { verifyAuthToken } from "@/utils/verifyAuthToken";
 import { verifyUserRole } from "@/utils/verifyUserRole";
 import { decode as decodeJWT } from "jsonwebtoken";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { NewSystemForm } from "./components/NewSystemForm";
+
+export const metadata: Metadata = {
+  title: 'SystemRank | Novo sistema',
+  description: 'Cadastre o seu sistema operacional e comece a ver os resultados',
+}
 
 export default async function NewSystem() {
   const isAuthenticated = (await verifyAuthToken()).cookie

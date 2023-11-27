@@ -4,6 +4,7 @@ import { ISystem } from "@/interfaces/ISystem";
 import { api } from "@/lib/ky";
 import { verifyAuthToken } from "@/utils/verifyAuthToken";
 import { decode as decodeJWT } from "jsonwebtoken";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { UpdateSystemForm } from "../components/UpdateSystemForm";
 
@@ -11,6 +12,11 @@ interface SystemSettingsProps {
   params: {
     systemId: string
   }
+}
+
+export const metadata: Metadata = {
+  title: 'SystemRank | Editar sistema',
+  description: 'Atualize as informações do seu sistema operacional para chamar mais atenção',
 }
 
 export default async function SystemSettings({ params }: SystemSettingsProps) {

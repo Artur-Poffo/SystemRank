@@ -6,6 +6,7 @@ import { IUser } from "@/interfaces/IUser"
 import { api } from "@/lib/ky"
 import { verifyAuthToken } from "@/utils/verifyAuthToken"
 import jwt from "jsonwebtoken"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { ReviewsList } from "./components/ReviewsList"
 import { SystemsList } from "./components/SystemsList"
@@ -16,6 +17,11 @@ interface UserProfileProps {
   params: {
     userId: string
   }
+}
+
+export const metadata: Metadata = {
+  title: 'SystemRank | Perfil',
+  description: 'Visualize o seu e o perfil de outros usuários',
 }
 
 export default async function UserProfile({ params }: UserProfileProps) {

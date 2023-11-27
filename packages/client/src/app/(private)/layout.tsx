@@ -9,8 +9,8 @@ import { redirect } from 'next/navigation'
 import '../globals.css'
 
 export const metadata: Metadata = {
-  title: 'SystemRank',
-  description: 'Crie sua conta e explore nossa lista de sistemas operacionais',
+  title: 'SystemRank | Explorar',
+  description: 'Explore nossa lista de sistemas operacionais e se surpreenda',
 }
 
 export default async function RootPrivateLayout({

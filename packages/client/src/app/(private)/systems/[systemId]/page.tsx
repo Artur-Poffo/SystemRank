@@ -4,6 +4,7 @@ import { ISystem } from "@/interfaces/ISystem"
 import { api } from "@/lib/ky"
 import { verifyAuthToken } from "@/utils/verifyAuthToken"
 import jwt from "jsonwebtoken"
+import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { SystemHeader } from "./components/SystemHeader"
 import { SystemSummaryCard } from "./components/SystemSummary"
@@ -13,6 +14,11 @@ interface SystemPageProps {
   params: {
     systemId: string
   }
+}
+
+export const metadata: Metadata = {
+  title: 'SystemRank | Sistema',
+  description: 'Visualize informações dos sistemas operacionais',
 }
 
 export default async function SystemPage({ params }: SystemPageProps) {

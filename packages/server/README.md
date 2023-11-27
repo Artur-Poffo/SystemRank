@@ -33,3 +33,9 @@
 - [x] All data lists must be paginated with 20 items per page.
 - [x] Users should be identified by a `JWT` (JSON Web Token).
 - [x] The JWT must use the `RS256` algorithm.
+
+## Future Tasks:
+
+- [ ] Implement E2E tests
+- [ ] Refactor unit tests
+- [ ] Review project architecture

@@ -1,19 +1,27 @@
 # SystemRank - Client Package 👔
 
-## Páginas:
+## Pages:
 
-- [x] / -> public -> Homepage, introdução a plataforma
-- [x] /auth/signin -> public -> Página de login, formulário para login
-- [x] /auth/signup -> public -> Página de cadastro, formulário para cadastro
-- [x] /explore -> private -> Página para explorar sistemas cadastrados, Lista de sistemas cadastrados com campo de pesquisa
-- [x] /me/:userId -> private -> Página perfil, Página de perfil de um usuário
-  - [x] Deve exibir todas as informações do usuário de uma forma agradável
-  - [x] Para empresas deve exibir a lista sistemas cadastrados
-  - [x] Para membros comuns deve exibir as últimas avaliações
-  - [x] Se o perfil for do mesmo usuário logado deve ter opção de ir para a página para editar perfil
-- [x] /systems/:systemId -> private -> Página de um sistema, Página de um sistema com avaliações do mesmo
-  - [x] Se o sistema for do usuário logado deve ser possível editar informações do sistema
-  - [x] Deve ter no final da página uma lista de avaliações do sistema
-  - [x] Deve ser possível adicionar uma avaliação ao sistema
-  - [x] Deve ser possível editar sua avaliação ao sistema
-  - [x] Deve ser possível excluir sua avaliação ao sistema
+- [x] / -> public -> Homepage, platform introduction
+- [x] /auth/signin -> public -> Login page, login form
+- [x] /auth/signup -> public -> Signup page, registration form
+- [x] /explore -> private -> Explore registered systems page, list of registered systems with search field
+- [x] /me/:userId -> private -> Profile page, User profile page
+  - [x] Should display all user information in a user-friendly manner
+  - [x] For companies, it should display the list of registered systems
+  - [x] For regular members, it should display the latest reviews
+  - [x] If the profile is of the logged-in user, there should be an option to go to the page to edit the profile
+- [x] /me/:userId/settings -> private -> Update profile page
+- [x] /systems/:systemId -> private -> System page, Page of a system with its reviews
+  - [x] If the system belongs to the logged-in user, it should be possible to edit system information
+  - [x] At the bottom of the page, there should be a list of system reviews
+  - [x] It should be possible to add a review to the system
+  - [x] It should be possible to edit your review of the system
+  - [x] It should be possible to delete your review of the system
+- [x] systems/:systemId/settings -> private -> Update system page
+
+## Future Tasks:
+
+- [ ] Review the project and better organize the components
+- [ ] Separate API request functions from components
+- [ ] Add the option to delete a system on the system page

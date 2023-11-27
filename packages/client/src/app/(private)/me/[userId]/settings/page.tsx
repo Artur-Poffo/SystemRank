@@ -4,6 +4,7 @@ import { IUser } from "@/interfaces/IUser";
 import { api } from "@/lib/ky";
 import { verifyAuthToken } from "@/utils/verifyAuthToken";
 import { decode as decodeJWT } from "jsonwebtoken";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { UpdateUserForm } from "../components/UpdateUserForm";
 
@@ -11,6 +12,10 @@ interface UserSettingsProps {
   params: {
     userId: string
   }
+}
+
+export const metadata: Metadata = {
+  title: 'SystemRank | Editar Perfil',
 }
 
 export default async function UserSettings({ params }: UserSettingsProps) {
