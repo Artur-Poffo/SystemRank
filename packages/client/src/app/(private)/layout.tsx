@@ -1,3 +1,4 @@
+import { MobileMenu } from '@/components/Navigation/MobileMenu'
 import { NavLinkProps } from '@/components/Navigation/NavLink'
 import { Navbar } from '@/components/Navigation/Navbar'
 import { Footer } from '@/components/UI/Footer'
@@ -33,6 +34,7 @@ export default async function RootPrivateLayout({
       <body className={`bg-brand-blue-900 text-brand-gray-200 scrollbar-thin scrollbar-thumb-brand-blue-700 scrollbar-track-brand-gray-900`}>
         <AuthContextProvider>
           <Navbar navLinks={navLinks} />
+          <MobileMenu navLinks={navLinks} />
 
           <main className='min-h-screen'>
             {children}
