@@ -4,7 +4,7 @@ import { DefaultButton } from "@/components/UI/DefaultButton"
 import { DefaultInput } from "@/components/UI/DefaultInput"
 import { FormError } from "@/components/UI/FormError"
 import { FormLabel } from "@/components/UI/FormLabel"
-import { ForwardRefEditor } from "@/components/UI/MDXEditor/ForwardRefEditor"
+import { MdEditor } from "@/components/UI/MdEditor"
 import { api } from "@/lib/ky"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
@@ -39,6 +39,8 @@ export function NewSystemForm() {
   const router = useRouter()
 
   async function handleRegisterSystem(data: RegisterSystemFormData) {
+    console.log(data)
+
     try {
       await api.post('systems', {
         method: "POST",
@@ -75,7 +77,7 @@ export function NewSystemForm() {
           <Controller
             name="content"
             control={control}
-            render={({ field }) => <ForwardRefEditor {...field} markdown={field.value} onChange={field.onChange} />}
+            render={({ field }) => <MdEditor {...field} />}
           />
           {errors.content?.message && <FormError errorMessage={errors.content.message} />}
         </div>

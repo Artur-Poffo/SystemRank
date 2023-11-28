@@ -4,7 +4,7 @@ import { DefaultButton } from "@/components/UI/DefaultButton";
 import { DefaultInput } from "@/components/UI/DefaultInput";
 import { FormError } from "@/components/UI/FormError";
 import { FormLabel } from "@/components/UI/FormLabel";
-import { ForwardRefEditor } from "@/components/UI/MDXEditor/ForwardRefEditor";
+import { MdEditor } from "@/components/UI/MdEditor";
 import { ISystem } from "@/interfaces/ISystem";
 import { api } from "@/lib/ky";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,7 +20,7 @@ interface UpdateSystemFormProps {
 const updateSystemFormSchema = z.object({
   name: z.string().nullable(),
   description: z.string().nullable(),
-  content: z.string().nullable(),
+  content: z.string(),
   systemPageLink: z.string().nullable(),
   systemLogoImagePath: z.string().nullable(),
   systemCoverImagePath: z.string().nullable(),
@@ -84,7 +84,7 @@ export function UpdateSystemForm({ system }: UpdateSystemFormProps) {
           <Controller
             name="content"
             control={control}
-            render={({ field }) => <ForwardRefEditor {...field} markdown={field.value || ""} onChange={field.onChange} />}
+            render={({ field }) => <MdEditor {...field} />}
           />
           {errors.content?.message && <FormError errorMessage={errors.content.message} />}
         </div>

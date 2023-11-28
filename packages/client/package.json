@@ -12,9 +12,10 @@
   "author": "Artur Poffo",
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
-    "@mdxeditor/editor": "^1.11.2",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@uiw/react-codemirror": "^4.21.21",
+    "@uiw/react-markdown-editor": "^6.0.0",
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.5",
     "jsonwebtoken": "^9.0.2",
