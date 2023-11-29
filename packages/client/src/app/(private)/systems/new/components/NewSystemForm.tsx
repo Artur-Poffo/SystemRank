@@ -2,6 +2,7 @@
 
 import { DefaultButton } from "@/components/UI/DefaultButton"
 import { DefaultInput } from "@/components/UI/DefaultInput"
+import { DefaultTextArea } from "@/components/UI/DefaultTextArea"
 import { FormError } from "@/components/UI/FormError"
 import { FormLabel } from "@/components/UI/FormLabel"
 import { MdEditor } from "@/components/UI/MdEditor"
@@ -68,7 +69,7 @@ export function NewSystemForm() {
         </div>
 
         <div className="w-full flex flex-col gap-1" >
-          <DefaultInput {...register("description")} name="description" label="Descrição*" placeholder="Descrição curta sobre o sistema " />
+          <DefaultTextArea {...register("description")} name="description" label="Descrição*" placeholder="Descrição curta sobre o sistema " />
           {errors.description?.message && <FormError errorMessage={errors.description.message} />}
         </div>
 

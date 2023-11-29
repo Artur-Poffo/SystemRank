@@ -1,8 +1,9 @@
+import { DefaultAsideCard } from "@/components/UI/DefaultAsideCard"
+import { DefaultLink } from "@/components/UI/DefaultLink"
 import { ISystem } from "@/interfaces/ISystem"
 import { IUser } from "@/interfaces/IUser"
 import { api } from "@/lib/ky"
 import dayjs from "dayjs"
-import Link from "next/link"
 
 interface SystemSummaryCardProps {
   system: ISystem
@@ -24,27 +25,21 @@ export async function SystemSummaryCard({ system }: SystemSummaryCardProps) {
   }
 
   return (
-    <aside className="max-w-lg static top-32 xl:sticky w-full lg:w-auto mx-auto xl:mx-0 bg-brand-gray-600 min-w-0 md:min-w-[400px] min-h-[300px] p-4 rounded-md flex flex-col items-center xl:items-start gap-5" >
-      <header className="w-full flex justify-center" >
-        <h2 className="text-3xl text-brand-blue-600 text-center font-mono font-bold" >Mais informações</h2>
-      </header>
+    <DefaultAsideCard title="Mais informações" >
+      <div>
+        <h3 className="text-brand-blue-600 font-mono font-bold" >Empresa responsável</h3>
+        <DefaultLink text={user.name} to={`/me/${user.id}`} />
+      </div>
 
-      <main className="flex flex-col gap-3" >
-        <div>
-          <h3 className="text-brand-blue-600 font-mono font-bold" >Empresa responsável</h3>
-          <Link href={`/me/${user.id}`} className="underline underline-offset-4 decoration-brand-green-300 transition-colors hover:text-brand-green-300" >{user.name}</Link>
-        </div>
+      <div>
+        <h3 className="text-brand-blue-600 font-mono font-bold" >Registrado em</h3>
+        <span>{registeredFormattedDate}</span>
+      </div>
 
-        <div>
-          <h3 className="text-brand-blue-600 font-mono font-bold" >Registrado em</h3>
-          <span>{registeredFormattedDate}</span>
-        </div>
-
-        <div>
-          <h3 className="text-brand-blue-600 font-mono font-bold" >Descrição</h3>
-          <p>{system.description}</p>
-        </div>
-      </main>
-    </aside>
+      <div>
+        <h3 className="text-brand-blue-600 font-mono font-bold" >Descrição</h3>
+        <p>{system.description}</p>
+      </div>
+    </DefaultAsideCard>
   )
 }

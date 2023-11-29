@@ -2,8 +2,8 @@
 
 import { DefaultButton } from "@/components/UI/DefaultButton"
 import { DefaultInput } from "@/components/UI/DefaultInput"
+import { DefaultTextArea } from "@/components/UI/DefaultTextArea"
 import { FormError } from "@/components/UI/FormError"
-import { FormLabel } from "@/components/UI/FormLabel"
 import { IReview } from "@/interfaces/IReview"
 import { api } from "@/lib/ky"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -64,8 +64,7 @@ export function CreateReviewForm({ systemId, setReviews, setIsCreateReviewDialog
         </div>
 
         <div className="w-full flex flex-col gap-1" >
-          <FormLabel text="Conteúdo" htmlFor="content" />
-          <textarea {...register('content')} name="content" placeholder="Conteúdo principal da review" className="bg-brand-blue-800 p-2 rounded-sm text-brand-blue-600" />
+          <DefaultTextArea {...register('content')} name="content" label="Conteúdo" placeholder="Conteúdo principal da review" />
           {errors.content?.message && <FormError errorMessage={errors.content.message} />}
         </div>
 

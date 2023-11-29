@@ -1,3 +1,4 @@
+import { DefaultAsideCard } from "@/components/UI/DefaultAsideCard"
 import { RoleSpan } from "@/components/UI/RoleSpan"
 import { IUser } from "@/interfaces/IUser"
 import dayjs from "dayjs"
@@ -10,7 +11,7 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
   const registeredFormattedDate = dayjs(user.created_at).format('DD/MM/YYYY')
 
   return (
-    <aside className="static top-36 xl:sticky w-full lg:w-auto mx-auto xl:mx-0 bg-brand-gray-600 min-w-0 md:min-w-[400px] min-h-[300px] p-4 rounded-md flex flex-col items-center xl:items-start gap-5" >
+    <DefaultAsideCard>
       <header className="-mt-14 flex flex-col items-center gap-2 mx-auto" >
         <div className={`w-24 h-24 rounded-full border-2 border-brand-green-300 p-1 ${!user.banner_profile_image_path && 'null-image-gradient'}`} >
           {user.profile_image_path && (
@@ -32,6 +33,6 @@ export function UserProfileCard({ user }: UserProfileCardProps) {
           <span>{registeredFormattedDate}</span>
         </div>
       </main>
-    </aside>
+    </DefaultAsideCard>
   )
 }

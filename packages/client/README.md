@@ -25,3 +25,18 @@
 - [ ] Review the project and better organize the components
 - [ ] Separate API request functions from components
 - [ ] Add the option to delete a system on the system page
+
+### Components:
+
+- [x] DefaultAsideCard
+- [x] DefaultLink
+- [x] DefaultTextArea
+
+### API Request Functions:
+
+- [] fetchAllSystems
+- [] getUserData
+- [] fetchSystemsOfCompany
+- [] fetchReviewsOfUser
+- [] getSystemData
+- [] fetchReviewsOfSystem
