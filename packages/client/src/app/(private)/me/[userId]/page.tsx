@@ -1,13 +1,11 @@
 import { TransitionWrapper } from "@/components/Navigation/Transition/Wrapper"
 import { DefaultSubTitle } from "@/components/UI/DefaultSubTitle"
-import { IReview } from "@/interfaces/IReview"
-import { ISystem } from "@/interfaces/ISystem"
-import { IUser } from "@/interfaces/IUser"
-import { api } from "@/lib/ky"
+import { fetchReviewsOfUser } from "@/server-functions/fetchReviewsOfUser"
+import { fetchSystemsOfCompany } from "@/server-functions/fetchSystemsOfCompany"
+import { getUserData } from "@/server-functions/getUserData"
 import { verifyAuthToken } from "@/utils/verifyAuthToken"
 import jwt from "jsonwebtoken"
 import { Metadata } from "next"
-import { notFound } from "next/navigation"
 import { ReviewsList } from "./components/ReviewsList"
 import { SystemsList } from "./components/SystemsList"
 import { UserBanner } from "./components/UserBanner"
@@ -26,45 +24,12 @@ export const metadata: Metadata = {
 
 export default async function UserProfile({ params }: UserProfileProps) {
   const { user } = await getUserData(params.userId)
+
   const systems = user.role === "COMPANY" ? await fetchSystemsOfCompany(params.userId) : null
   const reviews = user.role === "MEMBER" ? await fetchReviewsOfUser(params.userId) : null
 
   const authToken = await verifyAuthToken()
   const isTheOwner = authToken.cookie?.value ? jwt.decode(authToken.cookie.value)?.sub === user.id : false
-
-  async function getUserData(userId: string) {
-    try {
-      const res = await api.get(`users/${userId}`, {
-        method: 'GET',
-        cache: 'no-store'
-      })
-      const user: { user: IUser } = await res.json()
-
-      return user
-    } catch {
-      notFound()
-    }
-  }
-
-  async function fetchSystemsOfCompany(companyId: string) {
-    const res = await api.get(`systems/company/${companyId}`, {
-      method: 'GET',
-      cache: 'no-store'
-    })
-    const { systems }: { systems: ISystem[] } = await res.json()
-
-    return systems
-  }
-
-  async function fetchReviewsOfUser(userId: string) {
-    const res = await api.get(`reviews/user/${userId}`, {
-      method: 'GET',
-      cache: 'no-store'
-    })
-    const { reviews }: { reviews: IReview[] } = await res.json()
-
-    return reviews
-  }
 
   return (
     <TransitionWrapper>

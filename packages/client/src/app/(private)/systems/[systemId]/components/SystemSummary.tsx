@@ -1,8 +1,7 @@
 import { DefaultAsideCard } from "@/components/UI/DefaultAsideCard"
 import { DefaultLink } from "@/components/UI/DefaultLink"
 import { ISystem } from "@/interfaces/ISystem"
-import { IUser } from "@/interfaces/IUser"
-import { api } from "@/lib/ky"
+import { getUserData } from "@/server-functions/getUserData"
 import dayjs from "dayjs"
 
 interface SystemSummaryCardProps {
@@ -13,16 +12,6 @@ export async function SystemSummaryCard({ system }: SystemSummaryCardProps) {
   const { user } = await getUserData(system.user_id)
 
   const registeredFormattedDate = dayjs(system.created_at).format('DD/MM/YYYY')
-
-  async function getUserData(userId: string) {
-    const res = await api.get(`users/${userId}`, {
-      method: 'GET',
-      cache: 'no-store'
-    })
-    const user: { user: IUser } = await res.json()
-
-    return user
-  }
 
   return (
     <DefaultAsideCard title="Mais informações" >

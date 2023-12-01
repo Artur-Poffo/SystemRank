@@ -2,16 +2,11 @@ import { DefaultListItem } from "@/components/UI/DefaultListItem";
 import { DefaultSubTitle } from "@/components/UI/DefaultSubTitle";
 import { SectionHeader } from "@/components/UI/SectionHeader";
 import { SystemCard } from "@/components/UI/SystemCard";
-import { ISystem } from "@/interfaces/ISystem";
-import { api } from "@/lib/ky";
+import { fetchAllSystems } from "@/server-functions/fetchAllSystems";
 import Link from "next/link";
 
 export async function RecentSystemsSection() {
-  const res = await api.get('systems', {
-    method: 'GET',
-    cache: 'no-store'
-  })
-  const { systems }: { systems: ISystem[] } = await res.json()
+  const systems = await fetchAllSystems()
 
   return (
     <section id="recent-systems" className="px-4 pb-10" >

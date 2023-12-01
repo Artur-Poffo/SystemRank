@@ -5,7 +5,7 @@ import { DefaultDialog } from "@/components/UI/DefaultDialog"
 import { EmptyList } from "@/components/UI/EmptyList"
 import { useAuth } from "@/hooks/useAuth"
 import { IReview } from "@/interfaces/IReview"
-import { api } from "@/lib/ky"
+import { fetchReviewsOfSystem } from "@/server-functions/fetchReviewsOfSystem"
 import { useEffect, useState } from "react"
 import { CreateReviewForm } from "../components/CreateReviewForm"
 import { ReviewContainer } from "../components/ReviewContainer"
@@ -23,14 +23,11 @@ export function ReviewsListSection({ systemId, isTheOwner }: ReviewsListSectionP
   const authenticatedUserAlreadyReview = reviews.findIndex(review => review.user_id === user?.id)
 
   useEffect(() => {
-    api.get(`reviews/system/${systemId}`, {
-      method: 'GET',
-      cache: 'no-store'
-    })
-      .then(res => res.json() as unknown as { reviews: IReview[] })
-      .then(data => setReviews(data.reviews))
+    fetchReviewsOfSystem(systemId)
+      .then(reviews => setReviews(reviews))
   }, [])
 
+  // REVIEW OF LOGGED USER IN FIRST
   useEffect(() => {
     if (authenticatedUserAlreadyReview !== -1) {
       const tempReviews = [...reviews]

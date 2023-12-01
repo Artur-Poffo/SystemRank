@@ -5,7 +5,7 @@ import { DefaultListItem } from "@/components/UI/DefaultListItem";
 import { PageHeader } from "@/components/UI/PageHeader";
 import { SystemCard } from "@/components/UI/SystemCard";
 import { ISystem } from "@/interfaces/ISystem";
-import { api } from "@/lib/ky";
+import { fetchAllSystems } from "@/server-functions/fetchAllSystems";
 import { useEffect, useState } from "react";
 import { SearchBar } from "./components/SearchBar";
 
@@ -14,23 +14,13 @@ export default function Explore() {
   const [querySystems, setQuerySystems] = useState<ISystem[]>([])
 
   useEffect(() => {
-    searchAllSystems()
+    fetchAllSystems()
       .then(systems => {
         setAllSystems(systems)
         setQuerySystems(systems)
       })
       .catch(err => console.error('Erro pesquisando por sistemas: ', err))
   }, [])
-
-  async function searchAllSystems() {
-    const res = await api.get('systems', {
-      method: 'GET',
-      cache: 'no-store'
-    })
-    const { systems }: { systems: ISystem[] } = await res.json()
-
-    return systems
-  }
 
   async function handleQuerySystems(query: string) {
     const newQuerySystems = allSystems.filter(system => system.name.toUpperCase().trim().includes(query.toUpperCase().trim()))

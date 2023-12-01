@@ -1,7 +1,6 @@
 import { TransitionWrapper } from "@/components/Navigation/Transition/Wrapper";
 import { SectionHeader } from "@/components/UI/SectionHeader";
-import { ISystem } from "@/interfaces/ISystem";
-import { api } from "@/lib/ky";
+import { getSystemData } from "@/server-functions/getSystemData";
 import { verifyAuthToken } from "@/utils/verifyAuthToken";
 import { decode as decodeJWT } from "jsonwebtoken";
 import { Metadata } from "next";
@@ -20,21 +19,7 @@ export const metadata: Metadata = {
 }
 
 export default async function SystemSettings({ params }: SystemSettingsProps) {
-  const system = await getSystemData(params.systemId)
-
-  async function getSystemData(systemId: string) {
-    try {
-      const res = await api.get(`systems/${systemId}`, {
-        method: 'GET',
-        cache: 'no-store'
-      })
-      const { system }: { system: ISystem } = await res.json()
-
-      return system
-    } catch (err) {
-      console.error('Erro buscando pelo sistema: ', err)
-    }
-  }
+  const { system } = await getSystemData(params.systemId)
 
   const isAuthenticated = (await verifyAuthToken()).cookie
 

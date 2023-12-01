@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { IReview } from "@/interfaces/IReview";
 import { IUser } from "@/interfaces/IUser";
 import { api } from "@/lib/ky";
+import { getUserData } from "@/server-functions/getUserData";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -27,11 +28,7 @@ export function ReviewContainer({ review, reviews, setReviews }: ReviewContainer
   const isTheAuthor = user?.id === authenticatedUser?.id
 
   useEffect(() => {
-    api.get(`users/${review.user_id}`, {
-      method: 'GET',
-      cache: 'no-store'
-    })
-      .then(res => res.json() as unknown as { user: IUser })
+    getUserData(review.user_id)
       .then(data => setUser(data.user))
   }, [])
 

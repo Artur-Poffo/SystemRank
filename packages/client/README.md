@@ -34,9 +34,9 @@
 
 ### API Request Functions:
 
-- [] fetchAllSystems
-- [] getUserData
-- [] fetchSystemsOfCompany
-- [] fetchReviewsOfUser
-- [] getSystemData
-- [] fetchReviewsOfSystem
+- [x] fetchAllSystems
+- [x] getUserData
+- [x] fetchSystemsOfCompany
+- [x] fetchReviewsOfUser
+- [x] getSystemData
+- [x] fetchReviewsOfSystem

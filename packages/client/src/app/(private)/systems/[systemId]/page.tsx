@@ -1,11 +1,9 @@
 import { TransitionWrapper } from "@/components/Navigation/Transition/Wrapper"
 import { ReadMarkdownContainer } from "@/components/UI/ReadMarkdownContainer"
-import { ISystem } from "@/interfaces/ISystem"
-import { api } from "@/lib/ky"
+import { getSystemData } from "@/server-functions/getSystemData"
 import { verifyAuthToken } from "@/utils/verifyAuthToken"
 import jwt from "jsonwebtoken"
 import { Metadata } from "next"
-import { notFound } from "next/navigation"
 import { SystemHeader } from "./components/SystemHeader"
 import { SystemSummaryCard } from "./components/SystemSummary"
 import { ReviewsListSection } from "./sections/Reviews"
@@ -26,20 +24,6 @@ export default async function SystemPage({ params }: SystemPageProps) {
 
   const authToken = await verifyAuthToken()
   const isTheOwner = authToken.cookie?.value ? jwt.decode(authToken.cookie.value)?.sub === system.user_id : false
-
-  async function getSystemData(systemId: string) {
-    try {
-      const res = await api.get(`systems/${systemId}`, {
-        method: 'GET',
-        cache: 'no-store'
-      })
-      const system: { system: ISystem } = await res.json()
-
-      return system
-    } catch {
-      notFound()
-    }
-  }
 
   return (
     <TransitionWrapper>
