@@ -22,7 +22,7 @@
 
 ## Future Tasks:
 
-- [ ] Review the project and better organize the components
+- [x] Review the project and better organize the components
 - [ ] Separate API request functions from components
 - [ ] Add the option to delete a system on the system page
 
