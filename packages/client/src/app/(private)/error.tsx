@@ -2,6 +2,7 @@
 
 import { DefaultButton } from "@/components/UI/DefaultButton"
 import { PageHeader } from "@/components/UI/PageHeader"
+import Link from "next/link"
 
 
 export default function Error({
@@ -16,14 +17,23 @@ export default function Error({
       <PageHeader title={error.name} />
 
       <div className="flex flex-col items-center gap-2" >
-        <span>{error.message}</span>
+        <span className="text-3xl text-brand-green-300" >{error.message}</span>
 
-        <DefaultButton
-          text={"Tentar novamente"}
-          onClick={
-            () => reset()
-          }
-        />
+        <div className="flex items-center gap-3" >
+          <Link href={'/'} >
+            <DefaultButton
+              className="py-2 bg-brand-blue-700"
+              text={"Voltar para a Home"}
+            />
+          </Link>
+          <DefaultButton
+            className="py-2"
+            text={"Tentar novamente"}
+            onClick={
+              () => reset()
+            }
+          />
+        </div>
       </div>
     </div>
   )
