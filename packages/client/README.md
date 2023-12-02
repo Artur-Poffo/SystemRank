@@ -24,7 +24,7 @@
 
 - [x] Review the project and better organize the components
 - [x] Separate API request functions from components
-- [ ] Add the option to delete a system on the system page
+- [x] Add the option to delete a system on the system page
 
 ### Components:
 

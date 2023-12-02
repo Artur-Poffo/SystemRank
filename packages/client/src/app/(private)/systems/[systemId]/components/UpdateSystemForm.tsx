@@ -67,6 +67,19 @@ export function UpdateSystemForm({ system }: UpdateSystemFormProps) {
     }
   }
 
+  async function handleDeleteSystem() {
+    try {
+      await api.delete(`systems/${system.id}`, {
+        method: "DELETE",
+      })
+
+      await router.push('/explore')
+      await router.refresh()
+    } catch (err) {
+      throw new Error("Erro ao deletar sistema")
+    }
+  }
+
   return (
     <form className="w-full max-w-xl flex flex-col items-center gap-4" onSubmit={handleSubmit(handleUpdateSystem)} >
       <div className="w-full flex flex-col gap-4" >
@@ -106,7 +119,10 @@ export function UpdateSystemForm({ system }: UpdateSystemFormProps) {
         </div>
       </div>
 
-      <DefaultButton text="Atualizar sistema" type="submit" disabled={isSubmitting} className="mt-2 w-full py-2 disabled:opacity-80" />
+      <div className="w-full flex flex-col-reverse sm:flex-row items-center mt-2 gap-2" >
+        <DefaultButton text="Deletar sistema" type="button" disabled={isSubmitting} onClick={() => handleDeleteSystem()} className="w-full py-2 disabled:opacity-80 bg-zinc-900 border border-red-500" />
+        <DefaultButton text="Atualizar sistema" type="submit" disabled={isSubmitting} className="w-full py-2 whitespace-nowrap disabled:opacity-80" />
+      </div>
 
       {apiError && <FormError errorMessage={apiError} />}
     </form>
