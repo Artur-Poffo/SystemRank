@@ -22,5 +22,5 @@ jobs:
           node-version: 18
           cache: 'pnpm'
 
-      - run: pnpm install
-      - run: pnpm test
+      - run: pnpm --filter "@system-rank/server" install
+      - run: pnpm --filter "@system-rank/server" test
