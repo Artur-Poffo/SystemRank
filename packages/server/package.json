@@ -10,7 +10,7 @@
     "build": "tsup src",
     "start": "node dist/server.js",
     "test": "vitest run --dir src/use-cases",
-    "test:watch": "vitest dir src/use-cases",
+    "test:watch": "vitest --dir src/use-cases",
     "test:cov": "vitest run --coverage",
     "test:e2e": "vitest run --config ./vitest.config.e2e.mts",
     "test:e2e:watch": "vitest --config ./vitest.config.e2e.mts",
